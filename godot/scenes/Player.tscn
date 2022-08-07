@@ -1,64 +1,7 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/man/enmey.png" type="Texture" id=1]
 [ext_resource path="res://native/player.gdns" type="Script" id=2]
-[ext_resource path="res://assets/man/skill/back/frame_02_delay-0.1s.png" type="Texture" id=3]
-[ext_resource path="res://assets/man/skill/back/frame_04_delay-0.1s.png" type="Texture" id=4]
-[ext_resource path="res://assets/man/skill/back/frame_05_delay-0.1s.png" type="Texture" id=5]
-[ext_resource path="res://assets/man/skill/back/frame_06_delay-0.1s.png" type="Texture" id=6]
-[ext_resource path="res://assets/man/skill/back/frame_00_delay-0.1s.png" type="Texture" id=7]
-[ext_resource path="res://assets/man/skill/back/frame_01_delay-0.1s.png" type="Texture" id=8]
-[ext_resource path="res://assets/man/skill/back/frame_03_delay-0.1s.png" type="Texture" id=9]
-[ext_resource path="res://assets/man/skill/back/frame_07_delay-0.1s.png" type="Texture" id=10]
-[ext_resource path="res://assets/man/skill/front/frame_11_delay-0.1s.png" type="Texture" id=11]
-[ext_resource path="res://assets/man/skill/back/frame_11_delay-0.1s.png" type="Texture" id=12]
-[ext_resource path="res://assets/man/skill/front/frame_14_delay-0.1s.png" type="Texture" id=13]
-[ext_resource path="res://assets/man/skill/front/frame_00_delay-0.1s.png" type="Texture" id=14]
-[ext_resource path="res://assets/man/skill/front/frame_07_delay-0.1s.png" type="Texture" id=15]
-[ext_resource path="res://assets/man/skill/front/frame_17_delay-0.1s.png" type="Texture" id=16]
-[ext_resource path="res://assets/man/skill/back/frame_17_delay-0.1s.png" type="Texture" id=17]
-[ext_resource path="res://assets/man/skill/front/frame_01_delay-0.1s.png" type="Texture" id=18]
-[ext_resource path="res://assets/man/skill/front/frame_02_delay-0.1s.png" type="Texture" id=19]
-[ext_resource path="res://assets/man/skill/front/frame_12_delay-0.1s.png" type="Texture" id=20]
-[ext_resource path="res://assets/man/skill/front/frame_18_delay-0.1s.png" type="Texture" id=21]
-[ext_resource path="res://assets/man/skill/front/frame_16_delay-0.1s.png" type="Texture" id=22]
-[ext_resource path="res://assets/man/skill/back/frame_16_delay-0.1s.png" type="Texture" id=23]
-[ext_resource path="res://assets/man/skill/front/frame_06_delay-0.1s.png" type="Texture" id=24]
-[ext_resource path="res://assets/man/skill/back/frame_12_delay-0.1s.png" type="Texture" id=25]
-[ext_resource path="res://assets/man/skill/back/frame_13_delay-0.1s.png" type="Texture" id=26]
-[ext_resource path="res://assets/man/skill/back/frame_14_delay-0.1s.png" type="Texture" id=27]
-[ext_resource path="res://assets/man/skill/front/frame_05_delay-0.1s.png" type="Texture" id=28]
-[ext_resource path="res://assets/man/skill/front/frame_10_delay-0.1s.png" type="Texture" id=29]
-[ext_resource path="res://assets/man/skill/front/frame_13_delay-0.1s.png" type="Texture" id=30]
-[ext_resource path="res://assets/man/skill/front/frame_15_delay-0.1s.png" type="Texture" id=31]
-[ext_resource path="res://assets/man/skill/front/frame_08_delay-0.1s.png" type="Texture" id=32]
-[ext_resource path="res://assets/man/skill/back/frame_15_delay-0.1s.png" type="Texture" id=33]
-[ext_resource path="res://assets/man/skill/back/frame_09_delay-0.1s.png" type="Texture" id=34]
-[ext_resource path="res://assets/man/skill/back/frame_08_delay-0.1s.png" type="Texture" id=35]
-[ext_resource path="res://assets/man/skill/back/frame_10_delay-0.1s.png" type="Texture" id=36]
-[ext_resource path="res://assets/man/skill/back/frame_18_delay-0.1s.png" type="Texture" id=37]
-[ext_resource path="res://assets/man/skill/front/frame_03_delay-0.1s.png" type="Texture" id=38]
-[ext_resource path="res://assets/man/skill/front/frame_04_delay-0.1s.png" type="Texture" id=39]
-[ext_resource path="res://assets/man/skill/front/frame_09_delay-0.1s.png" type="Texture" id=40]
-
-[sub_resource type="CanvasItemMaterial" id=2]
-blend_mode = 1
-
-[sub_resource type="SpriteFrames" id=4]
-animations = [ {
-"frames": [ ExtResource( 14 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 28 ), ExtResource( 24 ), ExtResource( 15 ), ExtResource( 32 ), ExtResource( 40 ), ExtResource( 29 ), ExtResource( 11 ), ExtResource( 20 ), ExtResource( 30 ), ExtResource( 13 ), ExtResource( 31 ), ExtResource( 22 ), ExtResource( 16 ), ExtResource( 21 ) ],
-"loop": true,
-"name": "default",
-"speed": 10.0
-} ]
-
-[sub_resource type="SpriteFrames" id=3]
-animations = [ {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 35 ), ExtResource( 34 ), ExtResource( 36 ), ExtResource( 12 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 33 ), ExtResource( 23 ), ExtResource( 17 ), ExtResource( 37 ) ],
-"loop": true,
-"name": "default",
-"speed": 10.0
-} ]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 9.0
@@ -72,35 +15,10 @@ move_speed = 200.0
 shadow_offset_x = -45.0
 shadow_offset_y = -30.0
 
-[node name="buff2" type="AnimatedSprite" parent="."]
-material = SubResource( 2 )
-position = Vector2( 3.5, -15 )
-frames = SubResource( 4 )
-frame = 17
-playing = true
-
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 centered = false
 offset = Vector2( -25, -81 )
-
-[node name="buff" type="AnimatedSprite" parent="."]
-material = SubResource( 2 )
-position = Vector2( 2.5, 2 )
-frames = SubResource( 3 )
-frame = 13
-playing = true
-
-[node name="shadow" type="Sprite" parent="."]
-modulate = Color( 0.0745098, 0.0705882, 0.0705882, 1 )
-self_modulate = Color( 0.0588235, 0.054902, 0.054902, 1 )
-show_behind_parent = true
-position = Vector2( -4, -2 )
-rotation = 0.492183
-scale = Vector2( 0.7, 1 )
-texture = ExtResource( 1 )
-centered = false
-offset = Vector2( -25, -82 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true

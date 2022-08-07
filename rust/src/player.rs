@@ -47,7 +47,6 @@ pub struct Player {
 impl Player {
     // Register the builder for methods, properties and/or signals.
     fn register_builder(_builder: &ClassBuilder<Self>) {
-        godot_print!("Player builder is registered!");
         _builder.signal("enter").done();
     }
 
@@ -75,19 +74,6 @@ impl Player {
         self.bind_signal_method(_owner, "body_entered", "_on_player_enter");
         //碰撞退出信号注册
         self.bind_signal_method(_owner, "body_exited", "_on_player_exit");
-        //UI信号接受
-        // self.bind_signal_method_by_path(
-        //     _owner,
-        //     "../../CanvasLayer/minibar",
-        //     "move_mini_panel_to_left",
-        //     "_move_panel_to_left",
-        // );
-        // self.bind_signal_method_by_path(
-        //     _owner,
-        //     "../../CanvasLayer/minibar",
-        //     "move_mini_panel_to_right",
-        //     "_move_panel_to_right",
-        // );
         TARGETS = _owner.position();
         //加载素材
         let a = self.sprite_name.clone();
@@ -226,42 +212,6 @@ impl Player {
         //godot_print!("退出碰撞");
     }
 
-    // #[export]
-    // unsafe fn _move_panel_to_left(&mut self, _owner: &Area2D) {
-    //     let camera = _owner
-    //         .get_node("Camera2D")
-    //         .unwrap()
-    //         .assume_safe()
-    //         .cast::<Camera2D>()
-    //         .unwrap();
-    //     camera.set_position(Vector2 {
-    //         x: camera.position().x + 155.0,
-    //         y: camera.position().y,
-    //     });
-    //     CENTER = Vector2 {
-    //         x: CENTER.x - 200.0,
-    //         y: CENTER.y,
-    //     };
-    // }
-
-    // #[export]
-    // unsafe fn _move_panel_to_right(&mut self, _owner: &Area2D) {
-    //     let camera = _owner
-    //         .get_node("Camera2D")
-    //         .unwrap()
-    //         .assume_safe()
-    //         .cast::<Camera2D>()
-    //         .unwrap();
-    //     camera.set_position(Vector2 {
-    //         x: camera.position().x - 155.0,
-    //         y: camera.position().y,
-    //     });
-    //     CENTER = Vector2 {
-    //         x: CENTER.x + 200.0,
-    //         y: CENTER.y,
-    //     };
-    // }
-
     //重新加载资源 (godot脚本调用的外部接口)
     #[export]
     unsafe fn _reload_asset(&mut self, _owner: &Area2D) {
@@ -271,24 +221,24 @@ impl Player {
             &("res://assets/man/".to_string() + &name + ".png"),
         );
     }
-    //绑定其他节点信号
-    unsafe fn bind_signal_method_by_path(
-        &self,
-        _owner: &Area2D,
-        node_path: &str,
-        signal: &str,
-        method: &str,
-    ) {
-        let emit = _owner.get_node(node_path).unwrap().assume_safe();
-        emit.connect(
-            signal,
-            _owner.assume_shared(),
-            method,
-            VariantArray::new_shared(),
-            0,
-        )
-        .unwrap();
-    }
+    // //绑定其他节点信号
+    // unsafe fn bind_signal_method_by_path(
+    //     &self,
+    //     _owner: &Area2D,
+    //     node_path: &str,
+    //     signal: &str,
+    //     method: &str,
+    // ) {
+    //     let emit = _owner.get_node(node_path).unwrap().assume_safe();
+    //     emit.connect(
+    //         signal,
+    //         _owner.assume_shared(),
+    //         method,
+    //         VariantArray::new_shared(),
+    //         0,
+    //     )
+    //     .unwrap();
+    // }
 
     //绑定本身的信号
     unsafe fn bind_signal_method(&self, _owner: &Area2D, signal: &str, method: &str) {

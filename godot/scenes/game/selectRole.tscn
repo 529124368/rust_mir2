@@ -63,14 +63,13 @@ texture = ExtResource( 1 )
 material = SubResource( 3 )
 position = Vector2( 224, 300 )
 frames = SubResource( 4 )
-frame = 11
 playing = true
 
 [node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
 margin_left = 633.0
 margin_top = 517.0
 margin_right = 729.0
-margin_bottom = 557.0
+margin_bottom = 549.0
 texture_normal = ExtResource( 41 )
 texture_pressed = ExtResource( 40 )
 script = ExtResource( 13 )
