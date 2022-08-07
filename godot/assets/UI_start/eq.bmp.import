@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/run_button_down.png-07be334595c5be786a1e78636ae6669f.stex"
+path="res://.import/eq.bmp-985cbe77292f5c166b66f5be9bab61cd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI_start/run_button_down.png"
-dest_files=[ "res://.import/run_button_down.png-07be334595c5be786a1e78636ae6669f.stex" ]
+source_file="res://assets/UI_start/eq.bmp"
+dest_files=[ "res://.import/eq.bmp-985cbe77292f5c166b66f5be9bab61cd.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0

@@ -76,18 +76,18 @@ impl Player {
         //碰撞退出信号注册
         self.bind_signal_method(_owner, "body_exited", "_on_player_exit");
         //UI信号接受
-        self.bind_signal_method_by_path(
-            _owner,
-            "../../CanvasLayer/minibar",
-            "move_mini_panel_to_left",
-            "_move_panel_to_left",
-        );
-        self.bind_signal_method_by_path(
-            _owner,
-            "../../CanvasLayer/minibar",
-            "move_mini_panel_to_right",
-            "_move_panel_to_right",
-        );
+        // self.bind_signal_method_by_path(
+        //     _owner,
+        //     "../../CanvasLayer/minibar",
+        //     "move_mini_panel_to_left",
+        //     "_move_panel_to_left",
+        // );
+        // self.bind_signal_method_by_path(
+        //     _owner,
+        //     "../../CanvasLayer/minibar",
+        //     "move_mini_panel_to_right",
+        //     "_move_panel_to_right",
+        // );
         TARGETS = _owner.position();
         //加载素材
         let a = self.sprite_name.clone();
@@ -226,41 +226,41 @@ impl Player {
         //godot_print!("退出碰撞");
     }
 
-    #[export]
-    unsafe fn _move_panel_to_left(&mut self, _owner: &Area2D) {
-        let camera = _owner
-            .get_node("Camera2D")
-            .unwrap()
-            .assume_safe()
-            .cast::<Camera2D>()
-            .unwrap();
-        camera.set_position(Vector2 {
-            x: camera.position().x + 155.0,
-            y: camera.position().y,
-        });
-        CENTER = Vector2 {
-            x: CENTER.x - 200.0,
-            y: CENTER.y,
-        };
-    }
+    // #[export]
+    // unsafe fn _move_panel_to_left(&mut self, _owner: &Area2D) {
+    //     let camera = _owner
+    //         .get_node("Camera2D")
+    //         .unwrap()
+    //         .assume_safe()
+    //         .cast::<Camera2D>()
+    //         .unwrap();
+    //     camera.set_position(Vector2 {
+    //         x: camera.position().x + 155.0,
+    //         y: camera.position().y,
+    //     });
+    //     CENTER = Vector2 {
+    //         x: CENTER.x - 200.0,
+    //         y: CENTER.y,
+    //     };
+    // }
 
-    #[export]
-    unsafe fn _move_panel_to_right(&mut self, _owner: &Area2D) {
-        let camera = _owner
-            .get_node("Camera2D")
-            .unwrap()
-            .assume_safe()
-            .cast::<Camera2D>()
-            .unwrap();
-        camera.set_position(Vector2 {
-            x: camera.position().x - 155.0,
-            y: camera.position().y,
-        });
-        CENTER = Vector2 {
-            x: CENTER.x + 200.0,
-            y: CENTER.y,
-        };
-    }
+    // #[export]
+    // unsafe fn _move_panel_to_right(&mut self, _owner: &Area2D) {
+    //     let camera = _owner
+    //         .get_node("Camera2D")
+    //         .unwrap()
+    //         .assume_safe()
+    //         .cast::<Camera2D>()
+    //         .unwrap();
+    //     camera.set_position(Vector2 {
+    //         x: camera.position().x - 155.0,
+    //         y: camera.position().y,
+    //     });
+    //     CENTER = Vector2 {
+    //         x: CENTER.x + 200.0,
+    //         y: CENTER.y,
+    //     };
+    // }
 
     //重新加载资源 (godot脚本调用的外部接口)
     #[export]
