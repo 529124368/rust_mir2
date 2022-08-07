@@ -1,8 +1,9 @@
+use crate::man_base::ManBase;
 use gdnative::api::*;
 use gdnative::prelude::*;
 use lsz_macro::lszMacro;
-
-use crate::man_base::ManBase;
+use std::ops::Deref;
+use std::ops::DerefMut;
 
 /// The Player2 "class"
 #[derive(NativeClass, lszMacro)]
