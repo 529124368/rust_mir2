@@ -1,11 +1,34 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/UI_start/bar.bmp" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/UI_start/hp.bmp" type="Texture" id=3]
 [ext_resource path="res://tilemap/start.tres" type="TileSet" id=4]
+[ext_resource path="res://assets/UI_start/eq.bmp" type="Texture" id=5]
+[ext_resource path="res://assets/items/55.bmp" type="Texture" id=6]
+[ext_resource path="res://assets/items/298.bmp" type="Texture" id=7]
+[ext_resource path="res://assets/items/296.bmp" type="Texture" id=8]
+[ext_resource path="res://assets/items/297.bmp" type="Texture" id=9]
+[ext_resource path="res://assets/font/pf_normal.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://assets/items/85.bmp" type="Texture" id=11]
+[ext_resource path="res://assets/UI_start/586.bmp" type="Texture" id=12]
+[ext_resource path="res://assets/UI_start/1932.bmp" type="Texture" id=13]
+[ext_resource path="res://assets/items/hp.bmp" type="Texture" id=14]
+[ext_resource path="res://assets/items/mp.bmp" type="Texture" id=15]
+[ext_resource path="res://assets/items/huicheng.bmp" type="Texture" id=16]
+[ext_resource path="res://assets/items/1202.bmp" type="Texture" id=17]
 [ext_resource path="res://assets/audio/town1.wav" type="AudioStream" id=18]
 [ext_resource path="res://scenes/monster.tscn" type="PackedScene" id=67]
+
+[sub_resource type="CanvasItemMaterial" id=3]
+blend_mode = 1
+
+[sub_resource type="DynamicFont" id=1]
+size = 13
+font_data = ExtResource( 10 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
 
 [node name="Game" type="Node2D"]
 position = Vector2( 0, 0.028 )
@@ -23,8 +46,8 @@ autoplay = true
 [node name="menu" type="Control" parent="CanvasLayer"]
 margin_left = -118.0
 margin_top = 1.0
-margin_right = -74.0
-margin_bottom = 75.0
+margin_right = -118.0
+margin_bottom = 1.0
 rect_pivot_offset = Vector2( 513, 306 )
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/menu"]
@@ -40,6 +63,182 @@ margin_top = 476.0
 margin_right = 220.0
 margin_bottom = 556.0
 texture = ExtResource( 3 )
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/menu"]
+margin_left = 407.0
+margin_top = 463.0
+margin_right = 647.0
+margin_bottom = 503.0
+texture = ExtResource( 13 )
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/menu/TextureRect3"]
+margin_left = 154.0
+margin_top = 4.0
+margin_right = 182.0
+margin_bottom = 34.0
+texture = ExtResource( 15 )
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/menu/TextureRect3"]
+margin_left = 190.0
+margin_top = 4.0
+margin_right = 218.0
+margin_bottom = 34.0
+texture = ExtResource( 14 )
+
+[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/menu/TextureRect3"]
+margin_left = 120.0
+margin_top = 4.0
+margin_right = 148.0
+margin_bottom = 34.0
+texture = ExtResource( 16 )
+
+[node name="TextureRect7" type="TextureRect" parent="CanvasLayer/menu/TextureRect3"]
+margin_left = 85.0
+margin_top = 4.0
+margin_right = 113.0
+margin_bottom = 34.0
+texture = ExtResource( 15 )
+
+[node name="TextureRect8" type="TextureRect" parent="CanvasLayer/menu/TextureRect3"]
+margin_left = 50.0
+margin_top = 4.0
+margin_right = 78.0
+margin_bottom = 34.0
+texture = ExtResource( 14 )
+
+[node name="TextureRect9" type="TextureRect" parent="CanvasLayer/menu/TextureRect3"]
+margin_left = 14.0
+margin_top = 4.0
+margin_right = 42.0
+margin_bottom = 34.0
+texture = ExtResource( 15 )
+
+[node name="eq" type="Control" parent="CanvasLayer"]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/eq"]
+margin_left = 521.0
+margin_top = 42.0
+margin_right = 769.0
+margin_bottom = 323.0
+texture = ExtResource( 5 )
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
+margin_left = 82.0
+margin_top = 88.0
+margin_right = 166.0
+margin_bottom = 234.0
+texture = ExtResource( 11 )
+
+[node name="TextureRect10" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
+material = SubResource( 3 )
+margin_left = 56.0
+margin_top = 47.0
+margin_right = 208.0
+margin_bottom = 200.0
+texture = ExtResource( 17 )
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
+margin_left = 11.0
+margin_top = 172.0
+margin_right = 43.0
+margin_bottom = 197.0
+texture = ExtResource( 7 )
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
+margin_left = 206.0
+margin_top = 99.0
+margin_right = 238.0
+margin_bottom = 128.0
+texture = ExtResource( 8 )
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
+margin_left = 12.0
+margin_top = 209.0
+margin_right = 40.0
+margin_bottom = 236.0
+texture = ExtResource( 9 )
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
+margin_left = 206.0
+margin_top = 174.0
+margin_right = 238.0
+margin_bottom = 199.0
+texture = ExtResource( 7 )
+
+[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
+margin_left = 59.0
+margin_top = 44.0
+margin_right = 103.0
+margin_bottom = 189.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect7" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
+margin_left = -20.0
+margin_top = 140.0
+margin_right = 20.0
+margin_bottom = 180.0
+
+[node name="TextureRect8" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
+margin_left = 126.0
+margin_top = 65.0
+margin_right = 166.0
+margin_bottom = 105.0
+
+[node name="TextureRect9" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
+margin_left = 208.0
+margin_top = 208.0
+margin_right = 236.0
+margin_bottom = 235.0
+texture = ExtResource( 9 )
+
+[node name="message" type="Control" parent="CanvasLayer"]
+margin_left = 233.0
+margin_top = 501.0
+margin_right = 635.0
+margin_bottom = 567.0
+theme = SubResource( 2 )
+
+[node name="Panel" type="Panel" parent="CanvasLayer/message"]
+self_modulate = Color( 0, 0, 0, 0.4 )
+margin_left = -4.0
+margin_right = 36.0
+margin_bottom = 40.0
+rect_scale = Vector2( 10.113, 1.66061 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/message"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.0
+margin_top = -1.0
+margin_right = -1.0
+margin_bottom = 1.0
+bbcode_enabled = true
+bbcode_text = "欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+[color=red]欢迎来到韩国传奇2 经典的游戏，不一样的体验！！[/color]
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+[color=green]欢迎来到韩国传奇2 经典的游戏，不一样的体验！！[/color]
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+"
+text = "欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+"
+
+[node name="bag" type="Control" parent="CanvasLayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/bag"]
+margin_left = 14.0
+margin_top = 10.0
+margin_right = 402.0
+margin_bottom = 356.0
+texture = ExtResource( 12 )
 
 [node name="floor" type="TileMap" parent="."]
 mode = 1
