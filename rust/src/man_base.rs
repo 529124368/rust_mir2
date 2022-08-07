@@ -4,7 +4,10 @@ use gdnative::{
 };
 use std::collections::HashMap;
 
-use crate::tools::{self, json_read::T};
+use crate::tools::{
+    self,
+    json_read::{Offset, T},
+};
 
 #[derive(PartialEq)]
 pub enum Action {
@@ -17,6 +20,8 @@ pub enum Action {
 pub struct ManBase {
     //json缓存
     pub json_data: HashMap<String, tools::json_read::T>,
+    //
+    pub json_offset: Offset,
     //图集缓存
     pub img_assets: Option<Ref<Texture>>,
     pub play_sprite: Option<Ref<Sprite>>,
@@ -30,6 +35,7 @@ impl ManBase {
     pub fn new() -> Self {
         ManBase {
             json_data: HashMap::new(),
+            json_offset: Offset::default(),
             img_assets: None,
             play_sprite: None,
             //当前状态
@@ -99,5 +105,56 @@ impl ManBase {
                 y: json_name.spriteSourceSize.y,
             });
         }
+    }
+
+    //渲染精灵和影子 传奇用
+    pub unsafe fn render_sprite(&self, json_name: &T, state: u8, frame_num: u8) {
+        //获取精灵
+        let s = self.play_sprite.unwrap().assume_safe();
+        //更新图片
+        s.set_texture(tools::get_texture::get_img_by_name(
+            self.img_assets.as_ref().unwrap(),
+            json_name,
+        ));
+        //更新偏移
+        let ss = match state {
+            state if state == 0 => self
+                .json_offset
+                .stand
+                .get(self.dir as usize)
+                .unwrap()
+                .get(frame_num as usize)
+                .unwrap(),
+            state if state == 1 => self
+                .json_offset
+                .run
+                .get(self.dir as usize)
+                .unwrap()
+                .get(frame_num as usize)
+                .unwrap(),
+            state if state == 2 => self
+                .json_offset
+                .attack
+                .get(self.dir as usize)
+                .unwrap()
+                .get(frame_num as usize)
+                .unwrap(),
+            _ => todo!(),
+        };
+        let res: Vec<&str> = ss.split("_").collect();
+        let res: Vec<f32> = res.iter().map(|x| x.parse::<f32>().unwrap()).collect();
+        s.set_position(Vector2 {
+            x: res[0],
+            y: res[1],
+        });
+    }
+
+    //加载偏移json offset
+    pub unsafe fn load_offset_json(&mut self, json_path: &str) {
+        //json 加载
+        let json_file = File::new();
+        File::open(&json_file, json_path, File::READ).unwrap();
+        let s = json_file.get_as_text();
+        self.json_offset = tools::json_read::getjson_offset(&s.to_string());
     }
 }

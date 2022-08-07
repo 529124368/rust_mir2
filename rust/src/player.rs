@@ -32,11 +32,6 @@ pub struct Player {
     move_speed: f32,
     #[property]
     sprite_name: String,
-    //影子偏移坐标
-    #[property]
-    shadow_offset_x: f32,
-    #[property]
-    shadow_offset_y: f32,
     //是否在碰撞中
     is_block: bool,
     //各个动作的动画帧数
@@ -45,7 +40,6 @@ pub struct Player {
 
 #[methods]
 impl Player {
-    // Register the builder for methods, properties and/or signals.
     fn register_builder(_builder: &ClassBuilder<Self>) {
         _builder.signal("enter").done();
     }
@@ -53,18 +47,15 @@ impl Player {
     /// The "constructor" of the class.
     fn new(_owner: &Area2D) -> Self {
         Player {
-            sprite_name: "".to_string(),
+            sprite_name: "man".to_string(),
             man: ManBase::new(),
             timer_idel: 0.2,
             timer_attack: 0.2,
             timer_run: 0.2,
             timer_flg: 0.2,
             move_speed: 100.0,
-            //偏移量
-            shadow_offset_x: 0.0,
-            shadow_offset_y: 0.0,
             is_block: false,
-            step_nums: [16, 8, 15],
+            step_nums: [4, 6, 6],
         }
     }
 
@@ -79,7 +70,7 @@ impl Player {
         let a = self.sprite_name.clone();
         self.load_assets(
             &("res://assets/man/".to_string() + &a + ".json"),
-            &("res://assets/man/".to_string() + &a + ".png"),
+            &("res://assets/man/".to_string() + &a + ".bmp"),
         );
         //获取精灵节点
         let s = _owner
@@ -88,25 +79,15 @@ impl Player {
             .unwrap();
         //保存精灵节点
         self.play_sprite = Some(s.claim());
-        //获取影子节点
-        let shadow = _owner
-            .get_node_as("shadow")
-            .and_then(|f: TRef<Sprite>| f.cast::<Sprite>())
-            .unwrap();
-        //保存精灵节点
-        self.shadow_sprite = Some(shadow.claim());
         //裁剪图集
-        let json_name = self.json_data.get("0_stand_0.png").unwrap();
-
+        let json_name = self.json_data.get("0_stand_0.bmp").unwrap();
         //更新图片
         s.set_texture(tools::get_texture::get_img_by_name(
             self.img_assets.as_ref().unwrap(),
             json_name,
         ));
-        shadow.set_texture(tools::get_texture::get_img_by_name(
-            self.img_assets.as_ref().unwrap(),
-            json_name,
-        ));
+        //加载偏移
+        self.load_offset_json("res://assets/man/data.json");
     }
 
     // This function will be called in every frame
@@ -125,10 +106,9 @@ impl Player {
             SUM %= self.step_nums[index as usize];
 
             //裁剪图集
-            let n = (&self.anim_name).to_string() + &SUM.to_string() + ".png";
+            let n = (&self.anim_name).to_string() + &SUM.to_string() + ".bmp";
             let json_name = self.json_data.get(&n).unwrap();
-
-            self.render_sprite_and_shadow(json_name, self.shadow_offset_x, self.shadow_offset_y);
+            self.render_sprite(json_name, index, SUM);
             SUM += 1;
         }
 
@@ -218,7 +198,7 @@ impl Player {
         let name = self.sprite_name.clone();
         self.load_assets(
             &("res://assets/man/".to_string() + &name + ".json"),
-            &("res://assets/man/".to_string() + &name + ".png"),
+            &("res://assets/man/".to_string() + &name + ".bmp"),
         );
     }
     // //绑定其他节点信号

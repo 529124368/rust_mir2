@@ -63,3 +63,16 @@ pub fn getjson(s: &str) -> Root {
     let v: Root = serde_json::from_str(s).unwrap();
     v
 }
+
+#[derive(Debug, Serialize, Deserialize, Default)]
+pub struct Offset {
+    pub attack: Vec<Vec<String>>,
+    pub run: Vec<Vec<String>>,
+    pub stand: Vec<Vec<String>>,
+}
+
+//获取偏移
+pub fn getjson_offset(s: &str) -> Offset {
+    let v: Offset = serde_json::from_str(s).unwrap();
+    v
+}

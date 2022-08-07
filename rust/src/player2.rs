@@ -52,7 +52,7 @@ impl Player2 {
             shadow_offset_x: 0.0,
             shadow_offset_y: 0.0,
             is_block: false,
-            step_nums: [16, 8, 15],
+            step_nums: [4, 6, 6],
         }
     }
     #[export]
