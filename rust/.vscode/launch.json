@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+        "name": "rust-gdb - attach to process - zimuge",
+        "type": "gdb",
+        "request": "attach",
+        "gdbpath": "rust-gdb",
+        "cwd": "${workspaceFolder}",
+        "target": "12345",
+        "printCalls": true,
+        "showDevDebugOutput": true
+    }]
+}

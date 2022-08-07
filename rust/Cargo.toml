@@ -1,0 +1,13 @@
+[package]
+authors = ["529124368 <529124368@qq.com>"]
+edition = "2018"
+name = "zimuge"
+version = "0.1.0"
+
+[lib]
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+gdnative = "0.10.0"
+serde = {version = "1.0", features = ["derive"]}
+serde_json = "1.0"

@@ -1,0 +1,38 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/UI_loading/0000.bmp" type="Texture" id=2]
+[ext_resource path="res://assets/UI_loading/0001.bmp" type="Texture" id=3]
+[ext_resource path="res://assets/UI_loading/0002.bmp" type="Texture" id=4]
+[ext_resource path="res://assets/UI_loading/0004.bmp" type="Texture" id=5]
+[ext_resource path="res://assets/UI_loading/0005.bmp" type="Texture" id=6]
+[ext_resource path="res://assets/UI_loading/0006.bmp" type="Texture" id=7]
+[ext_resource path="res://assets/UI_loading/0003.bmp" type="Texture" id=8]
+[ext_resource path="res://assets/UI_loading/0009.bmp" type="Texture" id=9]
+[ext_resource path="res://assets/UI_loading/0008.bmp" type="Texture" id=10]
+[ext_resource path="res://assets/UI_loading/0007.bmp" type="Texture" id=11]
+[ext_resource path="res://script/loding.gd" type="Script" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 9 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Game" type="Node2D"]
+__meta__ = {
+"_edit_vertical_guides_": [ -176.0 ]
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="CanvasLayer"]
+position = Vector2( 409, 284 )
+frames = SubResource( 1 )
+script = ExtResource( 12 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1022.0
+margin_bottom = 599.0
+color = Color( 0.0392157, 0.0352941, 0.0352941, 1 )

@@ -1,0 +1,142 @@
+[gd_scene load_steps=41 format=2]
+
+[ext_resource path="res://assets/Ui_menu/login7.png" type="Texture" id=1]
+[ext_resource path="res://assets/Ui_menu/login2.png" type="Texture" id=2]
+[ext_resource path="res://assets/Ui_menu/login8.png" type="Texture" id=3]
+[ext_resource path="res://assets/Ui_menu/login9.png" type="Texture" id=4]
+[ext_resource path="res://assets/Ui_menu/login3.png" type="Texture" id=5]
+[ext_resource path="res://assets/Ui_menu/login4.png" type="Texture" id=6]
+[ext_resource path="res://assets/Ui_menu/login5.png" type="Texture" id=7]
+[ext_resource path="res://assets/Ui_menu/login1.png" type="Texture" id=8]
+[ext_resource path="res://assets/Ui_menu/login0.png" type="Texture" id=9]
+[ext_resource path="res://assets/Ui_menu/login6.png" type="Texture" id=10]
+[ext_resource path="res://assets/Ui_menu/login11.png" type="Texture" id=11]
+[ext_resource path="res://assets/Ui_menu/login10.png" type="Texture" id=12]
+[ext_resource path="res://script/selectScence.gd" type="Script" id=13]
+[ext_resource path="res://assets/audio/Act0-Intro.mp3" type="AudioStream" id=18]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_11.png" type="Texture" id=31]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_4.png" type="Texture" id=32]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_6.png" type="Texture" id=33]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_2.png" type="Texture" id=34]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_7.png" type="Texture" id=35]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_9.png" type="Texture" id=36]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_0.png" type="Texture" id=37]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_3.png" type="Texture" id=38]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_5.png" type="Texture" id=39]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_1.png" type="Texture" id=40]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_8.png" type="Texture" id=41]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireLeft_10.png" type="Texture" id=42]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_3.png" type="Texture" id=45]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_13.png" type="Texture" id=46]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_6.png" type="Texture" id=47]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_8.png" type="Texture" id=48]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_5.png" type="Texture" id=49]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_2.png" type="Texture" id=53]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_11.png" type="Texture" id=54]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_4.png" type="Texture" id=58]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_7.png" type="Texture" id=59]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_10.png" type="Texture" id=61]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_12.png" type="Texture" id=62]
+[ext_resource path="res://assets/Ui_menu/logo/logoFireRight_9.png" type="Texture" id=63]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 37 ), ExtResource( 40 ), ExtResource( 34 ), ExtResource( 38 ), ExtResource( 32 ), ExtResource( 39 ), ExtResource( 33 ), ExtResource( 35 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 42 ), ExtResource( 31 ) ],
+"loop": true,
+"name": "default",
+"speed": 18.0
+} ]
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 53 ), ExtResource( 45 ), ExtResource( 58 ), ExtResource( 49 ), ExtResource( 47 ), ExtResource( 59 ), ExtResource( 48 ), ExtResource( 63 ), ExtResource( 61 ), ExtResource( 54 ), ExtResource( 62 ), ExtResource( 46 ) ],
+"loop": true,
+"name": "default",
+"speed": 18.0
+} ]
+
+[node name="Game" type="Node2D"]
+__meta__ = {
+"_edit_vertical_guides_": [ -176.0 ]
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 0, -2 )
+stream = ExtResource( 18 )
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+margin_left = -84.0
+margin_right = 652.0
+margin_bottom = 598.0
+rect_scale = Vector2( 1.20341, 0.996412 )
+
+[node name="Login0" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 129, 128 )
+texture = ExtResource( 9 )
+
+[node name="Login1" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 385, 128 )
+texture = ExtResource( 8 )
+
+[node name="Login2" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 641, 128 )
+texture = ExtResource( 2 )
+
+[node name="Login3" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 897, 128 )
+texture = ExtResource( 5 )
+
+[node name="Login8" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 129, 472 )
+texture = ExtResource( 3 )
+
+[node name="Login9" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 385, 472 )
+texture = ExtResource( 4 )
+
+[node name="Login10" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 641, 472 )
+texture = ExtResource( 12 )
+
+[node name="Login4" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 129, 384 )
+texture = ExtResource( 6 )
+
+[node name="Login5" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 385, 384 )
+texture = ExtResource( 7 )
+
+[node name="Login6" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 641, 384 )
+texture = ExtResource( 10 )
+
+[node name="Login7" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 897, 384 )
+texture = ExtResource( 1 )
+
+[node name="Login11" type="Sprite" parent="CanvasLayer/Control"]
+position = Vector2( 897, 472 )
+texture = ExtResource( 11 )
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
+margin_left = 299.0
+margin_top = 170.0
+margin_right = 339.0
+margin_bottom = 210.0
+rect_scale = Vector2( 9.71872, 2.93616 )
+script = ExtResource( 13 )
+
+[node name="left_logo" type="AnimatedSprite" parent="CanvasLayer"]
+position = Vector2( 309, 83 )
+frames = SubResource( 4 )
+frame = 11
+playing = true
+
+[node name="right_logo" type="AnimatedSprite" parent="CanvasLayer"]
+position = Vector2( 492, 87 )
+frames = SubResource( 5 )
+frame = 4
+playing = true

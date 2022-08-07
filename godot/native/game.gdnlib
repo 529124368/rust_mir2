@@ -1,0 +1,40 @@
+[general]
+
+singleton=false
+load_once=true
+symbol_prefix="godot_"
+reloadable=false
+
+[entry]
+
+Android.armeabi-v7a="res://../lib/armv7-linux-androideabi/libzimuge.so"
+Android.arm64-v8a="res://../lib/aarch64-linux-android/libzimuge.so"
+Android.x86="res://../lib/i686-linux-android/libzimuge.so"
+Android.x86_64="res://../lib/x86_64-linux-android/libzimuge.so"
+HTML5.wasm32="res://../lib/wasm32-unknown-emscripten/zimuge.wasm"
+OSX.64="res://../lib/x86_64-apple-darwin/libzimuge.dylib"
+Windows.32="res://../lib/i686-pc-windows-msvc/zimuge.dll"
+X11.64="res://../lib/x86_64-unknown-linux-gnu/libzimuge.so"
+X11.32="res://../lib/i686-unknown-linux-gnu/libzimuge.so"
+iOS.arm64="res://../lib/aarch64-apple-ios/libzimuge.a"
+Server.32="res://../lib/i686-unknown-linux-gnu/libzimuge.so"
+Server.64="res://../lib/x86_64-unknown-linux-gnu/libzimuge.so"
+#Windows.32="res://../lib/i686-pc-windows-gnu/zimuge.dll"
+#Windows.64="res://../lib/x86_64-pc-windows-gnu/zimuge.dll"
+Windows.64="res://../target/release/zimuge.dll"
+
+[dependencies]
+
+Android.armeabi-v7a=[  ]
+Android.arm64-v8a=[  ]
+Android.x86=[  ]
+Android.x86_64=[  ]
+HTML5.wasm32=[  ]
+OSX.64=[  ]
+Windows.32=[  ]
+X11.64=[  ]
+X11.32=[  ]
+iOS.arm64=[  ]
+Server.32=[  ]
+Server.64=[  ]
+Windows.64=[  ]
