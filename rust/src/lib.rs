@@ -1,13 +1,13 @@
-mod diablo_player;
 mod man_base;
 mod mosnter;
+mod player;
 mod tools;
 
 use gdnative::prelude::{godot_init, InitHandle};
 
 // Function that registers all exposed classes to Godot
 fn init(handle: InitHandle) {
-    handle.add_class::<diablo_player::DiabloPlayer>();
+    handle.add_class::<player::Player>();
     handle.add_class::<mosnter::Mosnter>();
 }
 

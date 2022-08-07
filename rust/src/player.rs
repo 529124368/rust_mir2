@@ -1,5 +1,6 @@
 use gdnative::api::*;
 use gdnative::prelude::*;
+use lsz_macro::lszMacro;
 use std::ops::Deref;
 use std::ops::DerefMut;
 use std::ops::Mul;
@@ -14,11 +15,11 @@ static mut TARGETS: Vector2 = Vector2 { x: 0.0, y: 0.0 };
 static mut SPEED: Vector2 = Vector2 { x: 0.0, y: 0.0 };
 static mut CENTER: Vector2 = Vector2 { x: 400.0, y: 300.0 };
 static mut PRESS: bool = false;
-/// The DiabloPlayer "class"
-#[derive(NativeClass)]
+/// The Player "class"
+#[derive(NativeClass, lszMacro)]
 #[inherit(Area2D)]
 #[register_with(Self::register_builder)]
-pub struct DiabloPlayer {
+pub struct Player {
     man: ManBase,
     #[property]
     timer_idel: f64,
@@ -42,31 +43,17 @@ pub struct DiabloPlayer {
     step_nums: [u8; 3],
 }
 
-impl Deref for DiabloPlayer {
-    type Target = ManBase;
-
-    fn deref(&self) -> &ManBase {
-        &self.man
-    }
-}
-
-impl DerefMut for DiabloPlayer {
-    fn deref_mut(&mut self) -> &mut ManBase {
-        &mut self.man
-    }
-}
-
 #[methods]
-impl DiabloPlayer {
+impl Player {
     // Register the builder for methods, properties and/or signals.
     fn register_builder(_builder: &ClassBuilder<Self>) {
-        godot_print!("DiabloPlayer builder is registered!");
+        godot_print!("Player builder is registered!");
         _builder.signal("enter").done();
     }
 
     /// The "constructor" of the class.
     fn new(_owner: &Area2D) -> Self {
-        DiabloPlayer {
+        Player {
             sprite_name: "".to_string(),
             man: ManBase::new(),
             timer_idel: 0.2,

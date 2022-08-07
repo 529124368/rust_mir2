@@ -1,9 +1,8 @@
-use std::collections::HashMap;
-
 use gdnative::{
     api::File,
     prelude::{Ref, ResourceLoader, Sprite, Texture, Vector2},
 };
+use std::collections::HashMap;
 
 use crate::tools::{self, json_read::T};
 
@@ -13,6 +12,7 @@ pub enum Action {
     Run(u8),
     Attack(u8),
 }
+
 //人物基类
 pub struct ManBase {
     //json缓存
