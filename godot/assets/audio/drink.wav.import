@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/drink.wav-f42cfa6598bc326e5668c248cf0c9039.sample"
+
+[deps]
+
+source_file="res://assets/audio/drink.wav"
+dest_files=[ "res://.import/drink.wav-f42cfa6598bc326e5668c248cf0c9039.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

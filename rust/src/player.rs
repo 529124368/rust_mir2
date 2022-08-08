@@ -1,3 +1,4 @@
+use anyhow::Ok;
 use gdnative::api::*;
 use gdnative::prelude::*;
 use lsz_macro::lszMacro;
@@ -70,26 +71,26 @@ impl Player {
         let a = self.sprite_name.clone();
         self.load_assets_for_mir(&a);
         //获取精灵节点
-        let s = _owner
+        let w = _owner
             .get_node_as("Sprite")
             .and_then(|f: TRef<Sprite>| f.cast::<Sprite>())
             .unwrap();
         //保存精灵节点
-        self.play_sprite = Some(s.claim());
+        self.play_sprite.push(Some(w.claim()));
         //获取武器节点
         let w = _owner
             .get_node_as("weapon")
             .and_then(|f: TRef<Sprite>| f.cast::<Sprite>())
             .unwrap();
         //保存武器节点
-        self.wea_sprite = Some(w.claim());
-        //裁剪图集
-        let json_name = self.json_data.get("0_stand_0.png").unwrap();
-        //更新图片
-        s.set_texture(tools::get_texture::get_img_by_name(
-            self.img_assets.as_ref().unwrap(),
-            json_name,
-        ));
+        self.play_sprite.push(Some(w.claim()));
+        //获取翅膀节点
+        let w = _owner
+            .get_node_as("swing")
+            .and_then(|f: TRef<Sprite>| f.cast::<Sprite>())
+            .unwrap();
+        //保存武器节点
+        self.play_sprite.push(Some(w.claim()));
     }
 
     // This function will be called in every frame
@@ -108,22 +109,8 @@ impl Player {
             SUM %= self.step_nums[index as usize];
 
             //裁剪图集
-            let n = (&self.anim_name).to_string() + &SUM.to_string() + ".png";
-            let json_name = self.json_data.get(&n).unwrap();
-            let json_wea_name = self.json_data_wea.get(&n).unwrap();
-            self.render_sprite(json_name, json_wea_name, index, SUM);
+            self.render_sprite(index, SUM);
             SUM += 1;
-        }
-
-        //鼠标右键点击 攻击
-        if Input::is_mouse_button_pressed(&input, 2) && self.state == Action::Idle(0) {
-            if self.state != man_base::Action::Attack(2) {
-                SUM = 0;
-            }
-            self.state = man_base::Action::Attack(2);
-            //修改播放速度
-            self.timer_flg = self.timer_attack;
-            self.anim_name = self.dir.to_string() + "_attack_";
         }
 
         //移动
@@ -142,6 +129,24 @@ impl Player {
             //修改播放速度
             self.timer_flg = self.timer_idel;
             self.anim_name = self.dir.to_string() + "_stand_";
+        }
+
+        //鼠标右键点击 攻击
+        if Input::is_mouse_button_pressed(&input, 2) && self.state == Action::Idle(0) {
+            let audio = _owner
+                .get_node_as("audio")
+                .and_then(|t: TRef<AudioStreamPlayer2D>| t.cast::<AudioStreamPlayer2D>())
+                .unwrap();
+            if !audio.is_playing() {
+                audio.play(0.0);
+            }
+            if self.state != man_base::Action::Attack(2) {
+                SUM = 0;
+            }
+            self.state = man_base::Action::Attack(2);
+            //修改播放速度
+            self.timer_flg = self.timer_attack;
+            self.anim_name = self.dir.to_string() + "_attack_";
         }
     }
 
@@ -196,15 +201,6 @@ impl Player {
         //godot_print!("退出碰撞");
     }
 
-    //重新加载资源 (godot脚本调用的外部接口)
-    #[export]
-    unsafe fn _reload_asset(&mut self, _owner: &Area2D) {
-        let name = self.sprite_name.clone();
-        self.load_assets(
-            &("res://assets/man/".to_string() + &name + ".json"),
-            &("res://assets/man/".to_string() + &name + ".png"),
-        );
-    }
     // //绑定其他节点信号
     // unsafe fn bind_signal_method_by_path(
     //     &self,

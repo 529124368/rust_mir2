@@ -74,61 +74,11 @@ impl Mosnter {
     }
 
     #[export]
-    unsafe fn _ready(&mut self, _owner: &Area2D) {
-        self.timer_flg = self.timer_idel;
-        //加载素材
-        self.load_assets(
-            "res://assets/monster/FC.json",
-            "res://assets/monster/FC.png",
-        );
-        //获取精灵节点
-        let s = _owner
-            .get_node_as("Sprite")
-            .and_then(|f: TRef<Sprite>| f.cast::<Sprite>())
-            .unwrap();
-        //保存精灵节点
-        self.play_sprite = Some(s.claim());
-        //获取影子节点
-        let shadow = _owner
-            .get_node_as("shadow")
-            .and_then(|f: TRef<Sprite>| f.cast::<Sprite>())
-            .unwrap();
-        //保存精灵节点
-        self.shadow_sprite = Some(shadow.claim());
-        //裁剪图集
-        let json_name = self.json_data.get("0_stand_0.png").unwrap();
-
-        //更新图片
-        s.set_texture(tools::get_texture::get_img_by_name(
-            self.img_assets.as_ref().unwrap(),
-            json_name,
-        ));
-        shadow.set_texture(tools::get_texture::get_img_by_name(
-            self.img_assets.as_ref().unwrap(),
-            json_name,
-        ));
-    }
+    unsafe fn _ready(&mut self, _owner: &Area2D) {}
 
     // This function will be called in every frame
     #[export]
     unsafe fn _process(&mut self, _owner: &Area2D, delta: f64) {
         //轮图
-        self.timer_tick += delta;
-        if self.timer_tick > self.timer_flg {
-            let index = match self.state {
-                man_base::Action::Idle(a) => a,
-                man_base::Action::Run(b) => b,
-                man_base::Action::Attack(c) => c,
-            };
-            self.timer_tick = 0.0;
-            self.sum %= self.step_nums[index as usize];
-
-            //裁剪图集
-            let n = (&self.anim_name).to_string() + &self.sum.to_string() + ".png";
-            let json_name = self.json_data.get(&n).unwrap();
-
-            self.render_sprite_and_shadow(json_name, self.shadow_offset_x, self.shadow_offset_y);
-            self.sum += 1;
-        }
     }
 }

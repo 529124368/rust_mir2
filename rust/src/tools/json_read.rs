@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
+//人物
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Root {
     pub frames: HashMap<String, T>,
@@ -64,7 +65,8 @@ pub fn getjson(s: &str) -> Root {
     v
 }
 
-#[derive(Debug, Serialize, Deserialize, Default)]
+//偏移
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Offset {
     pub attack: Vec<Vec<String>>,
     pub run: Vec<Vec<String>>,

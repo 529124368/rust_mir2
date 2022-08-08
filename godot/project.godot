@@ -18,7 +18,6 @@ config/icon="res://assets/icon/godot-ferris-1024x1024.png"
 
 window/size/width=800
 window/size/resizable=false
-mouse_cursor/custom_image="res://assets/cursor/mouse.png"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
