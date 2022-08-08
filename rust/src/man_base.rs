@@ -6,7 +6,7 @@ use std::collections::HashMap;
 
 use crate::tools::{
     self,
-    json_read::{Offset, T},
+    json_read::{Offset, Skill, T},
 };
 
 #[derive(PartialEq)]
@@ -28,6 +28,11 @@ pub struct ManBase {
     pub anim_name: String,
     pub state: Action,
     pub nodes: [String; 2],
+    //技能相关
+    pub skill_offset: Skill,
+    pub skill_json: HashMap<String, T>,
+    pub skill_img_asset: Option<Ref<Texture>>,
+    pub skill_sprite: Option<Ref<Sprite>>,
 }
 
 impl ManBase {
@@ -42,6 +47,11 @@ impl ManBase {
             dir: 0,
             anim_name: "0_stand_".to_string(),
             nodes: ["man".to_string(), "weapon".to_string()],
+            //技能相关
+            skill_offset: Skill::default(),
+            skill_json: HashMap::new(),
+            skill_img_asset: None,
+            skill_sprite: None,
         }
     }
 
@@ -86,8 +96,37 @@ impl ManBase {
             });
         }
     }
+
+    //渲染技能 传奇用
+    pub unsafe fn render_skill(&self, frame_num: u8) {
+        //获取精灵
+        let s = self.skill_sprite.unwrap().assume_safe();
+        //更新图片
+        let n = (self.dir).to_string() + "_liehuo_" + &frame_num.to_string() + ".png";
+        s.set_texture(tools::get_texture::get_img_by_name(
+            self.skill_img_asset.as_ref().unwrap(),
+            self.skill_json.get(&n).unwrap(),
+        ));
+        //更新偏移
+        let ss = self
+            .skill_offset
+            .liehuo
+            .get(self.dir as usize)
+            .unwrap()
+            .get(frame_num as usize)
+            .unwrap();
+        let res: Vec<&str> = ss.split("_").collect();
+        let res: Vec<f32> = res.iter().map(|x| x.parse::<f32>().unwrap()).collect();
+        s.set_position(Vector2 {
+            x: res[0],
+            y: res[1],
+        });
+    }
     //加载资源 传奇用
     pub fn load_assets_for_mir(&mut self, name: &str) {
+        //加载技能
+        self.load_assets_for_skill(name);
+        //加载玩家 武器
         for i in 0..self.nodes.len() {
             //人物
             let json_path = &("res://assets/".to_string() + &self.nodes[i] + "/" + name + ".json");
@@ -95,12 +134,27 @@ impl ManBase {
             let json_offset = &("res://assets/".to_string() + &self.nodes[i] + "/data.json");
             //json 加载
             let res = self.common_load(json_path, image_path, json_offset);
+            //加载偏移json offset
             self.json_data.push(res.0);
             //加载资源
             self.img_assets.push(res.1);
-            //加载偏移json offset
             self.json_offset.push(res.2);
         }
+    }
+
+    //加载资源 传奇用
+    fn load_assets_for_skill(&mut self, name: &str) {
+        //人物
+        let json_path = &("res://assets/skill/".to_string() + name + ".json");
+        let image_path = &("res://assets/skill/".to_string() + name + ".png");
+        let json_offset = "res://assets/skill//data.json";
+        //json 加载
+        let res = self.common_load_skill(json_path, image_path, json_offset);
+        //加载偏移json offset
+        self.skill_json = res.0;
+        //加载资源
+        self.skill_img_asset = res.1;
+        self.skill_offset = res.2;
     }
 
     //共通方法
@@ -124,6 +178,30 @@ impl ManBase {
         File::open(&json_file, json_offset, File::READ).unwrap();
         let s = json_file.get_as_text();
         let offset = tools::json_read::getjson_offset(&s.to_string());
+        File::close(&json_file);
+        (frames, asset, offset)
+    }
+
+    fn common_load_skill(
+        &self,
+        json_path: &str,
+        image_path: &str,
+        json_offset: &str,
+    ) -> (HashMap<String, T>, Option<Ref<Texture>>, Skill) {
+        let json_file = File::new();
+        //json 加载
+        File::open(&json_file, json_path, File::READ).unwrap();
+        let s = json_file.get_as_text();
+        let s = tools::json_read::getjson(&s.to_string());
+        let frames = s.frames;
+        //加载资源
+        let im = ResourceLoader::godot_singleton();
+        let asset =
+            ResourceLoader::load(&im, image_path, "", false).and_then(|s| s.cast::<Texture>());
+        //加载偏移json offset
+        File::open(&json_file, json_offset, File::READ).unwrap();
+        let s = json_file.get_as_text();
+        let offset = tools::json_read::getjson_skill(&s.to_string());
         File::close(&json_file);
         (frames, asset, offset)
     }

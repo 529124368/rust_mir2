@@ -78,3 +78,16 @@ pub fn getjson_offset(s: &str) -> Offset {
     let v: Offset = serde_json::from_str(s).unwrap();
     v
 }
+
+//技能
+#[derive(Debug, Serialize, Deserialize, Default)]
+pub struct Skill {
+    pub banyue: Vec<Vec<String>>,
+    pub liehuo: Vec<Vec<String>>,
+}
+
+//获取技能
+pub fn getjson_skill(s: &str) -> Skill {
+    let v: Skill = serde_json::from_str(s).unwrap();
+    v
+}

@@ -1,4 +1,3 @@
-use anyhow::Ok;
 use gdnative::api::*;
 use gdnative::prelude::*;
 use lsz_macro::lszMacro;
@@ -84,13 +83,12 @@ impl Player {
             .unwrap();
         //保存武器节点
         self.play_sprite.push(Some(w.claim()));
-        //获取翅膀节点
+        //获取技能节点
         let w = _owner
-            .get_node_as("swing")
+            .get_node_as("skill")
             .and_then(|f: TRef<Sprite>| f.cast::<Sprite>())
             .unwrap();
-        //保存武器节点
-        self.play_sprite.push(Some(w.claim()));
+        self.skill_sprite = Some(w.claim());
     }
 
     // This function will be called in every frame
@@ -100,16 +98,20 @@ impl Player {
         //轮图
         TIMER_TICK += delta;
         if TIMER_TICK > self.timer_flg {
-            let index = match self.state {
+            let action = match self.state {
                 man_base::Action::Idle(a) => a,
                 man_base::Action::Run(b) => b,
                 man_base::Action::Attack(c) => c,
             };
             TIMER_TICK = 0.0;
-            SUM %= self.step_nums[index as usize];
+            SUM %= self.step_nums[action as usize];
 
             //裁剪图集
-            self.render_sprite(index, SUM);
+            self.render_sprite(action, SUM);
+            //
+            if action == 2 {
+                self.render_skill(SUM);
+            }
             SUM += 1;
         }
 
