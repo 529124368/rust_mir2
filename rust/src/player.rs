@@ -111,6 +111,11 @@ impl Player {
             //
             if action == 2 {
                 self.render_skill(SUM);
+            } else {
+                self.skill_sprite
+                    .unwrap()
+                    .assume_safe()
+                    .set_texture(Texture::null());
             }
             SUM += 1;
         }
@@ -149,6 +154,12 @@ impl Player {
             //修改播放速度
             self.timer_flg = self.timer_attack;
             self.anim_name = self.dir.to_string() + "_attack_";
+        }
+        if Input::is_action_pressed(&input, "f1", false) {
+            self.change_skill("banyue".to_string());
+        }
+        if Input::is_action_pressed(&input, "f2", false) {
+            self.change_skill("liehuo".to_string());
         }
     }
 

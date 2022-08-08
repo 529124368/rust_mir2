@@ -1,6 +1,6 @@
 use gdnative::{
     api::File,
-    prelude::{Ref, ResourceLoader, Sprite, Texture, Unique, Vector2},
+    prelude::{Ref, ResourceLoader, Sprite, StringArray, Texture, Unique, Vector2},
 };
 use std::collections::HashMap;
 
@@ -33,6 +33,7 @@ pub struct ManBase {
     pub skill_json: HashMap<String, T>,
     pub skill_img_asset: Option<Ref<Texture>>,
     pub skill_sprite: Option<Ref<Sprite>>,
+    pub skill_name: String,
 }
 
 impl ManBase {
@@ -52,6 +53,7 @@ impl ManBase {
             skill_json: HashMap::new(),
             skill_img_asset: None,
             skill_sprite: None,
+            skill_name: "liehuo".to_string(),
         }
     }
 
@@ -102,19 +104,30 @@ impl ManBase {
         //获取精灵
         let s = self.skill_sprite.unwrap().assume_safe();
         //更新图片
-        let n = (self.dir).to_string() + "_liehuo_" + &frame_num.to_string() + ".png";
+        let n =
+            (self.dir).to_string() + "_" + &self.skill_name + "_" + &frame_num.to_string() + ".png";
         s.set_texture(tools::get_texture::get_img_by_name(
             self.skill_img_asset.as_ref().unwrap(),
             self.skill_json.get(&n).unwrap(),
         ));
         //更新偏移
-        let ss = self
-            .skill_offset
-            .liehuo
-            .get(self.dir as usize)
-            .unwrap()
-            .get(frame_num as usize)
-            .unwrap();
+        let ss = match &self.skill_name {
+            skill if skill == "liehuo" => self
+                .skill_offset
+                .liehuo
+                .get(self.dir as usize)
+                .unwrap()
+                .get(frame_num as usize)
+                .unwrap(),
+            skill if skill == "banyue" => self
+                .skill_offset
+                .banyue
+                .get(self.dir as usize)
+                .unwrap()
+                .get(frame_num as usize)
+                .unwrap(),
+            _ => todo!(),
+        };
         let res: Vec<&str> = ss.split("_").collect();
         let res: Vec<f32> = res.iter().map(|x| x.parse::<f32>().unwrap()).collect();
         s.set_position(Vector2 {
@@ -204,5 +217,9 @@ impl ManBase {
         let offset = tools::json_read::getjson_skill(&s.to_string());
         File::close(&json_file);
         (frames, asset, offset)
+    }
+    //改变技能
+    pub fn change_skill(&mut self, name: String) {
+        self.skill_name = name;
     }
 }
