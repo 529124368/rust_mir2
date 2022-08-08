@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/man/4.png" type="Texture" id=1]
 [ext_resource path="res://native/player.gdns" type="Script" id=2]
-[ext_resource path="res://assets/man/6.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 9.0
@@ -17,14 +15,13 @@ sprite_name = "man"
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, 1 )
-texture = ExtResource( 3 )
 centered = false
 
 [node name="swing" type="Sprite" parent="."]
+centered = false
 
 [node name="weapon" type="Sprite" parent="."]
 position = Vector2( 0, 1 )
-texture = ExtResource( 1 )
 centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
