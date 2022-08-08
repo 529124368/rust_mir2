@@ -20,12 +20,15 @@ pub enum Action {
 pub struct ManBase {
     //json缓存
     pub json_data: HashMap<String, tools::json_read::T>,
-    //
+    pub json_data_wea: HashMap<String, tools::json_read::T>,
     pub json_offset: Offset,
+    pub json_offset_wea: Offset,
     //图集缓存
     pub img_assets: Option<Ref<Texture>>,
+    pub img_assets_wea: Option<Ref<Texture>>,
     pub play_sprite: Option<Ref<Sprite>>,
     pub shadow_sprite: Option<Ref<Sprite>>,
+    pub wea_sprite: Option<Ref<Sprite>>,
     pub dir: u8,
     pub anim_name: String,
     pub state: Action,
@@ -35,9 +38,13 @@ impl ManBase {
     pub fn new() -> Self {
         ManBase {
             json_data: HashMap::new(),
+            json_data_wea: HashMap::new(),
             json_offset: Offset::default(),
+            json_offset_wea: Offset::default(),
+            img_assets_wea: None,
             img_assets: None,
             play_sprite: None,
+            wea_sprite: None,
             //当前状态
             state: Action::Idle(0),
             shadow_sprite: None,
@@ -107,8 +114,8 @@ impl ManBase {
         }
     }
 
-    //渲染精灵和影子 传奇用
-    pub unsafe fn render_sprite(&self, json_name: &T, state: u8, frame_num: u8) {
+    //渲染精灵 传奇用
+    pub unsafe fn render_sprite(&self, json_name: &T, json_wea_name: &T, state: u8, frame_num: u8) {
         //获取精灵
         let s = self.play_sprite.unwrap().assume_safe();
         //更新图片
@@ -147,14 +154,90 @@ impl ManBase {
             x: res[0],
             y: res[1],
         });
+        //weapon
+        //获取精灵
+        let s = self.wea_sprite.unwrap().assume_safe();
+        //更新图片
+        s.set_texture(tools::get_texture::get_img_by_name(
+            self.img_assets_wea.as_ref().unwrap(),
+            json_wea_name,
+        ));
+        //更新偏移
+        let ss = match state {
+            state if state == 0 => self
+                .json_offset_wea
+                .stand
+                .get(self.dir as usize)
+                .unwrap()
+                .get(frame_num as usize)
+                .unwrap(),
+            state if state == 1 => self
+                .json_offset_wea
+                .run
+                .get(self.dir as usize)
+                .unwrap()
+                .get(frame_num as usize)
+                .unwrap(),
+            state if state == 2 => self
+                .json_offset_wea
+                .attack
+                .get(self.dir as usize)
+                .unwrap()
+                .get(frame_num as usize)
+                .unwrap(),
+            _ => todo!(),
+        };
+        let res: Vec<&str> = ss.split("_").collect();
+        let res: Vec<f32> = res.iter().map(|x| x.parse::<f32>().unwrap()).collect();
+        s.set_position(Vector2 {
+            x: res[0],
+            y: res[1],
+        });
     }
-
-    //加载偏移json offset
-    pub unsafe fn load_offset_json(&mut self, json_path: &str) {
+    //加载资源 传奇用
+    pub fn load_assets_for_mir(&mut self, name: &str) {
+        let json_path = &("res://assets/man/".to_string() + name + ".json");
+        let image_path = &("res://assets/man/".to_string() + name + ".png");
         //json 加载
         let json_file = File::new();
         File::open(&json_file, json_path, File::READ).unwrap();
         let s = json_file.get_as_text();
+        let s = tools::json_read::getjson(&s.to_string());
+        self.json_data = s.frames;
+        File::close(&json_file);
+        //加载资源
+        let im = ResourceLoader::godot_singleton();
+        self.img_assets =
+            ResourceLoader::load(&im, image_path, "", false).and_then(|s| s.cast::<Texture>());
+        //加载偏移json offset
+        let json_file = File::new();
+        let json_path = &("res://assets/man/data.json");
+        File::open(&json_file, json_path, File::READ).unwrap();
+        let s = json_file.get_as_text();
         self.json_offset = tools::json_read::getjson_offset(&s.to_string());
+        File::close(&json_file);
+
+        //武器
+        let json_path = &("res://assets/weapon/".to_string() + name + ".json");
+        let image_path = &("res://assets/weapon/".to_string() + name + ".png");
+        //json 加载
+        let json_file = File::new();
+        File::open(&json_file, json_path, File::READ).unwrap();
+        let s = json_file.get_as_text();
+        let s = tools::json_read::getjson(&s.to_string());
+        self.json_data_wea = s.frames;
+        File::close(&json_file);
+
+        //加载资源
+        let im = ResourceLoader::godot_singleton();
+        self.img_assets_wea =
+            ResourceLoader::load(&im, image_path, "", false).and_then(|s| s.cast::<Texture>());
+        //加载偏移json offset
+        let json_file = File::new();
+        let json_path = &("res://assets/weapon/data.json");
+        File::open(&json_file, json_path, File::READ).unwrap();
+        let s = json_file.get_as_text();
+        self.json_offset_wea = tools::json_read::getjson_offset(&s.to_string());
+        File::close(&json_file);
     }
 }

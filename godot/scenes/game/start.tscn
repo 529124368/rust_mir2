@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/UI_start/hp.bmp" type="Texture" id=3]
 [ext_resource path="res://tilemap/start.tres" type="TileSet" id=4]
 [ext_resource path="res://assets/UI_start/eq.bmp" type="Texture" id=5]
-[ext_resource path="res://assets/items/55.bmp" type="Texture" id=6]
+[ext_resource path="res://assets/items/57.bmp" type="Texture" id=6]
 [ext_resource path="res://assets/items/298.bmp" type="Texture" id=7]
 [ext_resource path="res://assets/items/296.bmp" type="Texture" id=8]
 [ext_resource path="res://assets/items/297.bmp" type="Texture" id=9]
@@ -166,10 +166,10 @@ margin_bottom = 199.0
 texture = ExtResource( 7 )
 
 [node name="TextureRect6" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]
-margin_left = 59.0
-margin_top = 44.0
-margin_right = 103.0
-margin_bottom = 189.0
+margin_left = 41.0
+margin_top = 41.0
+margin_right = 93.0
+margin_bottom = 186.0
 texture = ExtResource( 6 )
 
 [node name="TextureRect7" type="TextureRect" parent="CanvasLayer/eq/TextureRect"]

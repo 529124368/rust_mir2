@@ -1,24 +1,30 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://assets/man/4.png" type="Texture" id=1]
 [ext_resource path="res://native/player.gdns" type="Script" id=2]
-
-[sub_resource type="CanvasItemMaterial" id=2]
-blend_mode = 1
+[ext_resource path="res://assets/man/6.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 9.0
 
 [node name="Player" type="Area2D"]
 script = ExtResource( 2 )
-timer_idel = 0.1
+timer_idel = 0.2
 timer_run = 0.05
 timer_attack = 0.04
 move_speed = 200.0
 sprite_name = "man"
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 2 )
 position = Vector2( 0, 1 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="swing" type="Sprite" parent="."]
+
+[node name="weapon" type="Sprite" parent="."]
+position = Vector2( 0, 1 )
+texture = ExtResource( 1 )
 centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]

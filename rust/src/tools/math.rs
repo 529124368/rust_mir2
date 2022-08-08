@@ -24,7 +24,7 @@ pub fn cal_dir(a: Vector2, b: Vector2) -> f32 {
 }
 
 // Calculate Direction
-pub fn cal_d(d: f32) -> u32 {
+pub fn cal_d(d: f32) -> u8 {
     match d {
         d if d >= 337.5 && d < 360.0 || d <= 0.0 && d < 22.5 => return 0,
         d if d >= 22.5 && d < 67.5 => return 1,

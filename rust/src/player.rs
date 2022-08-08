@@ -68,10 +68,7 @@ impl Player {
         TARGETS = _owner.position();
         //加载素材
         let a = self.sprite_name.clone();
-        self.load_assets(
-            &("res://assets/man/".to_string() + &a + ".json"),
-            &("res://assets/man/".to_string() + &a + ".bmp"),
-        );
+        self.load_assets_for_mir(&a);
         //获取精灵节点
         let s = _owner
             .get_node_as("Sprite")
@@ -79,15 +76,20 @@ impl Player {
             .unwrap();
         //保存精灵节点
         self.play_sprite = Some(s.claim());
+        //获取武器节点
+        let w = _owner
+            .get_node_as("weapon")
+            .and_then(|f: TRef<Sprite>| f.cast::<Sprite>())
+            .unwrap();
+        //保存武器节点
+        self.wea_sprite = Some(w.claim());
         //裁剪图集
-        let json_name = self.json_data.get("0_stand_0.bmp").unwrap();
+        let json_name = self.json_data.get("0_stand_0.png").unwrap();
         //更新图片
         s.set_texture(tools::get_texture::get_img_by_name(
             self.img_assets.as_ref().unwrap(),
             json_name,
         ));
-        //加载偏移
-        self.load_offset_json("res://assets/man/data.json");
     }
 
     // This function will be called in every frame
@@ -106,9 +108,10 @@ impl Player {
             SUM %= self.step_nums[index as usize];
 
             //裁剪图集
-            let n = (&self.anim_name).to_string() + &SUM.to_string() + ".bmp";
+            let n = (&self.anim_name).to_string() + &SUM.to_string() + ".png";
             let json_name = self.json_data.get(&n).unwrap();
-            self.render_sprite(json_name, index, SUM);
+            let json_wea_name = self.json_data_wea.get(&n).unwrap();
+            self.render_sprite(json_name, json_wea_name, index, SUM);
             SUM += 1;
         }
 
@@ -123,6 +126,7 @@ impl Player {
             self.anim_name = self.dir.to_string() + "_attack_";
         }
 
+        //移动
         SPEED = _owner.position().direction_to(TARGETS) * self.move_speed;
         if _owner.position().distance_to(TARGETS) > 3.0 && !self.is_block {
             self.state = man_base::Action::Run(1);
@@ -151,7 +155,7 @@ impl Player {
             PRESS = true;
             if let Some(viewport) = _owner.get_viewport().map(|f| f.assume_safe()) {
                 let target = viewport.get_mouse_position();
-                self.dir = tools::math::cal_d(tools::math::cal_dir(CENTER, target)) as u8;
+                self.dir = tools::math::cal_d(tools::math::cal_dir(CENTER, target));
                 TARGETS = tools::math::add(_owner.position(), tools::math::sub(CENTER, target));
                 let state2d = _owner
                     .get_world_2d()
@@ -198,7 +202,7 @@ impl Player {
         let name = self.sprite_name.clone();
         self.load_assets(
             &("res://assets/man/".to_string() + &name + ".json"),
-            &("res://assets/man/".to_string() + &name + ".bmp"),
+            &("res://assets/man/".to_string() + &name + ".png"),
         );
     }
     // //绑定其他节点信号

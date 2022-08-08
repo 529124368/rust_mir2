@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mouse.png-a4a8356b4b93cec2b916a91c85107212.stex"
+path="res://.import/4.png-764e28bff910c00825b6e313d3cf5c05.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cursor/mouse.png"
-dest_files=[ "res://.import/mouse.png-a4a8356b4b93cec2b916a91c85107212.stex" ]
+source_file="res://assets/man/4.png"
+dest_files=[ "res://.import/4.png-764e28bff910c00825b6e313d3cf5c05.stex" ]
 
 [params]
 

@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="mir2"
-run/main_scene="res://scenes/game/menu.tscn"
+run/main_scene="res://scenes/game/start.tscn"
 config/icon="res://assets/icon/godot-ferris-1024x1024.png"
 
 [display]

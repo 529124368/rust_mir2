@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/man.bmp-37f858f196871e96ab99066e6ba6e611.stex"
+path="res://.import/man.png-776393b25868604cd329eb8fd28faba0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/man/man.bmp"
-dest_files=[ "res://.import/man.bmp-37f858f196871e96ab99066e6ba6e611.stex" ]
+source_file="res://assets/weapon/man.png"
+dest_files=[ "res://.import/man.png-776393b25868604cd329eb8fd28faba0.stex" ]
 
 [params]
 

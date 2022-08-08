@@ -1,4 +1,3 @@
-mod player2;
 mod man_base;
 mod mosnter;
 mod player;
@@ -8,7 +7,6 @@ use gdnative::prelude::{godot_init, InitHandle};
 
 // Function that registers all exposed classes to Godot
 fn init(handle: InitHandle) {
-    handle.add_class::<player2::Player2>();
     handle.add_class::<player::Player>();
     handle.add_class::<mosnter::Mosnter>();
 }
