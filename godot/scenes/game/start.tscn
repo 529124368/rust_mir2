@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://assets/UI_start/bar.bmp" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -16,11 +16,10 @@
 [ext_resource path="res://assets/items/hp.bmp" type="Texture" id=14]
 [ext_resource path="res://assets/items/mp.bmp" type="Texture" id=15]
 [ext_resource path="res://assets/items/huicheng.bmp" type="Texture" id=16]
-[ext_resource path="res://assets/items/1202.bmp" type="Texture" id=17]
 [ext_resource path="res://assets/UI_start/430.png" type="Texture" id=18]
 [ext_resource path="res://assets/UI_start/647.png" type="Texture" id=19]
 [ext_resource path="res://assets/UI_start/646.png" type="Texture" id=20]
-[ext_resource path="res://script/closeEq.gd" type="Script" id=21]
+[ext_resource path="res://assets/bagitem/58.png" type="Texture" id=21]
 [ext_resource path="res://assets/UI_start/eqopen.png" type="Texture" id=22]
 [ext_resource path="res://assets/UI_start/eqdown.png" type="Texture" id=23]
 [ext_resource path="res://script/openeq.gd" type="Script" id=24]
@@ -29,13 +28,14 @@
 [ext_resource path="res://assets/UI_start/300.png" type="Texture" id=27]
 [ext_resource path="res://script/closebg.gd" type="Script" id=28]
 [ext_resource path="res://assets/bagitem/56.png" type="Texture" id=29]
-[ext_resource path="res://assets/bagitem/55.png" type="Texture" id=30]
-[ext_resource path="res://assets/bagitem/86.png" type="Texture" id=31]
+[ext_resource path="res://assets/bagitem/86.png" type="Texture" id=30]
+[ext_resource path="res://assets/bagitem/121.png" type="Texture" id=31]
 [ext_resource path="res://assets/bagitem/57.png" type="Texture" id=32]
-[ext_resource path="res://assets/bagitem/62.png" type="Texture" id=33]
+[ext_resource path="res://assets/bagitem/59.png" type="Texture" id=33]
 [ext_resource path="res://assets/bagitem/85.png" type="Texture" id=34]
-[ext_resource path="res://assets/bagitem/121.png" type="Texture" id=35]
+[ext_resource path="res://assets/bagitem/55.png" type="Texture" id=35]
 [ext_resource path="res://assets/audio/open.wav" type="AudioStream" id=36]
+[ext_resource path="res://assets/bagitem/62.png" type="Texture" id=37]
 
 [sub_resource type="DynamicFont" id=6]
 size = 10
@@ -44,22 +44,19 @@ font_data = ExtResource( 10 )
 [sub_resource type="Theme" id=7]
 default_font = SubResource( 6 )
 
-[sub_resource type="DynamicFont" id=4]
-extra_spacing_bottom = 6
-font_data = ExtResource( 10 )
-
-[sub_resource type="Theme" id=5]
-default_font = SubResource( 4 )
-
-[sub_resource type="CanvasItemMaterial" id=3]
-blend_mode = 1
-
 [sub_resource type="DynamicFont" id=1]
 size = 13
 font_data = ExtResource( 10 )
 
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+extra_spacing_bottom = 6
+font_data = ExtResource( 10 )
+
+[sub_resource type="Theme" id=5]
+default_font = SubResource( 4 )
 
 [node name="Game" type="Node2D"]
 position = Vector2( 0, 0.028 )
@@ -213,6 +210,51 @@ scroll_active = false
 [node name="audio" type="AudioStreamPlayer2D" parent="CanvasLayer/menu"]
 stream = ExtResource( 36 )
 
+[node name="message" type="Control" parent="CanvasLayer"]
+margin_left = 233.0
+margin_top = 501.0
+margin_right = 635.0
+margin_bottom = 567.0
+theme = SubResource( 2 )
+
+[node name="Panel" type="Panel" parent="CanvasLayer/message"]
+self_modulate = Color( 0, 0, 0, 0.4 )
+margin_left = -4.0
+margin_right = 36.0
+margin_bottom = 40.0
+rect_scale = Vector2( 10.113, 1.66061 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/message"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.0
+margin_top = -1.0
+margin_right = -1.0
+margin_bottom = 1.0
+bbcode_enabled = true
+bbcode_text = "欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+[color=red]欢迎来到韩国传奇2 经典的游戏，不一样的体验！！[/color]
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+[color=green]欢迎来到韩国传奇2 经典的游戏，不一样的体验！！[/color]
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+"
+text = "欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
+"
+
+[node name="input" type="TextEdit" parent="CanvasLayer/message"]
+margin_left = -1.0
+margin_top = 48.0
+margin_right = 400.0
+margin_bottom = 68.0
+highlight_current_line = true
+syntax_highlighting = true
+
 [node name="eq" type="Control" parent="CanvasLayer"]
 visible = false
 theme = SubResource( 5 )
@@ -237,14 +279,6 @@ margin_top = 88.0
 margin_right = 166.0
 margin_bottom = 234.0
 texture = ExtResource( 11 )
-
-[node name="TextureRect10" type="TextureRect" parent="CanvasLayer/eq/TextureRect2/TextureRect"]
-material = SubResource( 3 )
-margin_left = 56.0
-margin_top = 47.0
-margin_right = 208.0
-margin_bottom = 200.0
-texture = ExtResource( 17 )
 
 [node name="TextureRect2" type="TextureRect" parent="CanvasLayer/eq/TextureRect2/TextureRect"]
 margin_left = 11.0
@@ -335,44 +369,11 @@ margin_bottom = 31.0
 rect_scale = Vector2( 1.126, 1.07335 )
 texture_normal = ExtResource( 19 )
 texture_pressed = ExtResource( 20 )
-script = ExtResource( 21 )
+script = ExtResource( 24 )
 
-[node name="message" type="Control" parent="CanvasLayer"]
-margin_left = 233.0
-margin_top = 501.0
-margin_right = 635.0
-margin_bottom = 567.0
-theme = SubResource( 2 )
-
-[node name="Panel" type="Panel" parent="CanvasLayer/message"]
-self_modulate = Color( 0, 0, 0, 0.4 )
-margin_left = -4.0
-margin_right = 36.0
-margin_bottom = 40.0
-rect_scale = Vector2( 10.113, 1.66061 )
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/message"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -3.0
-margin_top = -1.0
-margin_right = -1.0
-margin_bottom = 1.0
-bbcode_enabled = true
-bbcode_text = "欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
-欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
-[color=red]欢迎来到韩国传奇2 经典的游戏，不一样的体验！！[/color]
-欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
-[color=green]欢迎来到韩国传奇2 经典的游戏，不一样的体验！！[/color]
-欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
-"
-text = "欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
-欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
-欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
-欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
-欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
-欢迎来到韩国传奇2 经典的游戏，不一样的体验！！
-"
+[node name="audio" type="AudioStreamPlayer2D" parent="CanvasLayer/eq"]
+position = Vector2( 512, 11 )
+stream = ExtResource( 36 )
 
 [node name="bag" type="Control" parent="CanvasLayer"]
 visible = false
@@ -382,66 +383,812 @@ margin_bottom = 40.0
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/bag"]
 margin_right = 396.0
 margin_bottom = 490.0
-rect_scale = Vector2( 0.8, 0.8 )
+size_flags_horizontal = 3
+size_flags_vertical = 2
 texture = ExtResource( 27 )
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
-margin_left = 236.0
-margin_top = 185.0
-margin_right = 272.0
-margin_bottom = 217.0
-texture = ExtResource( 30 )
-
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
-margin_left = 273.75
-margin_top = 187.5
-margin_right = 306.75
-margin_bottom = 218.5
-texture = ExtResource( 29 )
-
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
-margin_left = 200.0
-margin_top = 187.5
-margin_right = 232.0
-margin_bottom = 215.5
-texture = ExtResource( 32 )
-
-[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
-margin_left = 161.25
-margin_top = 188.75
-margin_right = 197.25
-margin_bottom = 212.75
-texture = ExtResource( 33 )
-
-[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
-margin_left = 162.5
-margin_top = 121.25
-margin_right = 198.5
-margin_bottom = 151.25
-texture = ExtResource( 34 )
-
-[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
-margin_left = 86.25
-margin_top = 152.5
-margin_right = 122.25
-margin_bottom = 185.5
-texture = ExtResource( 35 )
-
-[node name="TextureRect7" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
-margin_left = 308.75
-margin_top = 120.0
-margin_right = 344.75
-margin_bottom = 150.0
-texture = ExtResource( 31 )
+expand = true
 
 [node name="closebg" type="TextureButton" parent="CanvasLayer/bag"]
-margin_left = 295.0
-margin_top = 1.0
-margin_right = 311.0
-margin_bottom = 18.0
-rect_scale = Vector2( 1.11852, 1.08333 )
+margin_left = 373.0
+margin_top = 3.0
+margin_right = 389.0
+margin_bottom = 21.0
 texture_normal = ExtResource( 19 )
 texture_pressed = ExtResource( 20 )
+script = ExtResource( 28 )
+
+[node name="audio" type="AudioStreamPlayer2D" parent="CanvasLayer/bag"]
+stream = ExtResource( 36 )
+
+[node name="layout" type="GridContainer" parent="CanvasLayer/bag"]
+margin_left = 13.0
+margin_top = 120.0
+margin_right = 384.0
+margin_bottom = 452.0
+size_flags_vertical = 0
+custom_constants/vseparation = 0
+custom_constants/hseparation = 1
+columns = 10
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_right = 36.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 35 )
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 37.0
+margin_right = 73.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 74.0
+margin_right = 110.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 111.0
+margin_right = 147.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 148.0
+margin_right = 184.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 29 )
+
+[node name="TextureRect7" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 185.0
+margin_right = 221.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 33 )
+
+[node name="TextureRect8" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 222.0
+margin_right = 258.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect9" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 259.0
+margin_right = 295.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 37 )
+
+[node name="TextureRect10" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 296.0
+margin_right = 332.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect11" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 333.0
+margin_right = 369.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 37 )
+
+[node name="TextureRect12" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_top = 33.0
+margin_right = 36.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 37 )
+
+[node name="TextureRect13" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 37.0
+margin_top = 33.0
+margin_right = 73.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect14" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 74.0
+margin_top = 33.0
+margin_right = 110.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 30 )
+
+[node name="TextureRect15" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 111.0
+margin_top = 33.0
+margin_right = 147.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect16" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 148.0
+margin_top = 33.0
+margin_right = 184.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect17" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 185.0
+margin_top = 33.0
+margin_right = 221.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 30 )
+
+[node name="TextureRect18" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 222.0
+margin_top = 33.0
+margin_right = 258.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 30 )
+
+[node name="TextureRect19" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 259.0
+margin_top = 33.0
+margin_right = 295.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 30 )
+
+[node name="TextureRect20" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 296.0
+margin_top = 33.0
+margin_right = 332.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 30 )
+
+[node name="TextureRect21" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 333.0
+margin_top = 33.0
+margin_right = 369.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 30 )
+
+[node name="TextureRect22" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_top = 66.0
+margin_right = 36.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 30 )
+
+[node name="TextureRect23" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 37.0
+margin_top = 66.0
+margin_right = 73.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 30 )
+
+[node name="TextureRect24" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 74.0
+margin_top = 66.0
+margin_right = 110.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 30 )
+
+[node name="TextureRect25" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 111.0
+margin_top = 66.0
+margin_right = 147.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect26" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 148.0
+margin_top = 66.0
+margin_right = 184.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect27" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 185.0
+margin_top = 66.0
+margin_right = 221.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect28" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 222.0
+margin_top = 66.0
+margin_right = 258.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect29" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 259.0
+margin_top = 66.0
+margin_right = 295.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect30" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 296.0
+margin_top = 66.0
+margin_right = 332.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect31" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 333.0
+margin_top = 66.0
+margin_right = 369.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect32" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_top = 99.0
+margin_right = 36.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect33" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 37.0
+margin_top = 99.0
+margin_right = 73.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 31 )
+
+[node name="TextureRect34" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 74.0
+margin_top = 99.0
+margin_right = 110.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 31 )
+
+[node name="TextureRect35" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 111.0
+margin_top = 99.0
+margin_right = 147.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 31 )
+
+[node name="TextureRect36" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 148.0
+margin_top = 99.0
+margin_right = 184.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 31 )
+
+[node name="TextureRect37" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 185.0
+margin_top = 99.0
+margin_right = 221.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 31 )
+
+[node name="TextureRect38" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 222.0
+margin_top = 99.0
+margin_right = 258.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 31 )
+
+[node name="TextureRect39" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 259.0
+margin_top = 99.0
+margin_right = 295.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 31 )
+
+[node name="TextureRect40" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 296.0
+margin_top = 99.0
+margin_right = 332.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect41" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 333.0
+margin_top = 99.0
+margin_right = 369.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect42" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_top = 132.0
+margin_right = 36.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect43" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 37.0
+margin_top = 132.0
+margin_right = 73.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect44" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 74.0
+margin_top = 132.0
+margin_right = 110.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect45" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 111.0
+margin_top = 132.0
+margin_right = 147.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect46" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 148.0
+margin_top = 132.0
+margin_right = 184.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect47" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 185.0
+margin_top = 132.0
+margin_right = 221.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect48" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 222.0
+margin_top = 132.0
+margin_right = 258.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect49" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 259.0
+margin_top = 132.0
+margin_right = 295.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect50" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 296.0
+margin_top = 132.0
+margin_right = 332.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect51" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 333.0
+margin_top = 132.0
+margin_right = 369.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect52" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_top = 165.0
+margin_right = 36.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect53" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 37.0
+margin_top = 165.0
+margin_right = 73.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect54" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 74.0
+margin_top = 165.0
+margin_right = 110.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect55" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 111.0
+margin_top = 165.0
+margin_right = 147.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect56" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 148.0
+margin_top = 165.0
+margin_right = 184.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect57" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 185.0
+margin_top = 165.0
+margin_right = 221.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect58" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 222.0
+margin_top = 165.0
+margin_right = 258.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect59" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 259.0
+margin_top = 165.0
+margin_right = 295.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect60" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 296.0
+margin_top = 165.0
+margin_right = 332.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect61" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 333.0
+margin_top = 165.0
+margin_right = 369.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect62" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_top = 198.0
+margin_right = 36.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 35 )
+
+[node name="TextureRect63" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 37.0
+margin_top = 198.0
+margin_right = 73.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 35 )
+
+[node name="TextureRect64" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 74.0
+margin_top = 198.0
+margin_right = 110.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 35 )
+
+[node name="TextureRect65" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 111.0
+margin_top = 198.0
+margin_right = 147.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 35 )
+
+[node name="TextureRect66" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 148.0
+margin_top = 198.0
+margin_right = 184.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 35 )
+
+[node name="TextureRect67" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 185.0
+margin_top = 198.0
+margin_right = 221.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 35 )
+
+[node name="TextureRect68" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 222.0
+margin_top = 198.0
+margin_right = 258.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 35 )
+
+[node name="TextureRect69" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 259.0
+margin_top = 198.0
+margin_right = 295.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect70" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 296.0
+margin_top = 198.0
+margin_right = 332.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect71" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 333.0
+margin_top = 198.0
+margin_right = 369.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect72" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_top = 231.0
+margin_right = 36.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect73" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 37.0
+margin_top = 231.0
+margin_right = 73.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect74" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 74.0
+margin_top = 231.0
+margin_right = 110.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect75" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 111.0
+margin_top = 231.0
+margin_right = 147.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect76" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 148.0
+margin_top = 231.0
+margin_right = 184.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect77" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 185.0
+margin_top = 231.0
+margin_right = 221.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect78" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 222.0
+margin_top = 231.0
+margin_right = 258.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect79" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 259.0
+margin_top = 231.0
+margin_right = 295.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect80" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 296.0
+margin_top = 231.0
+margin_right = 332.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect81" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 333.0
+margin_top = 231.0
+margin_right = 369.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect82" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_top = 264.0
+margin_right = 36.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect83" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 37.0
+margin_top = 264.0
+margin_right = 73.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect84" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 74.0
+margin_top = 264.0
+margin_right = 110.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect85" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 111.0
+margin_top = 264.0
+margin_right = 147.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect86" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 148.0
+margin_top = 264.0
+margin_right = 184.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect87" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 185.0
+margin_top = 264.0
+margin_right = 221.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect88" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 222.0
+margin_top = 264.0
+margin_right = 258.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect89" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 259.0
+margin_top = 264.0
+margin_right = 295.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect90" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 296.0
+margin_top = 264.0
+margin_right = 332.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 21 )
+
+[node name="TextureRect91" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 333.0
+margin_top = 264.0
+margin_right = 369.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect92" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_top = 297.0
+margin_right = 36.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect93" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 37.0
+margin_top = 297.0
+margin_right = 73.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect94" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 74.0
+margin_top = 297.0
+margin_right = 110.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect95" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 111.0
+margin_top = 297.0
+margin_right = 147.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect96" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 148.0
+margin_top = 297.0
+margin_right = 184.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect97" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 185.0
+margin_top = 297.0
+margin_right = 221.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect98" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 222.0
+margin_top = 297.0
+margin_right = 258.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect99" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 259.0
+margin_top = 297.0
+margin_right = 295.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect100" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 296.0
+margin_top = 297.0
+margin_right = 332.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
+
+[node name="TextureRect101" type="TextureRect" parent="CanvasLayer/bag/layout"]
+margin_left = 333.0
+margin_top = 297.0
+margin_right = 369.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 36, 33 )
+texture = ExtResource( 32 )
 
 [node name="floor" type="TileMap" parent="."]
 mode = 1
@@ -464,5 +1211,6 @@ format = 1
 tile_data = PoolIntArray( -1179660, 6, 0, -1179659, 6, 0, -1179658, 6, 0, -1179657, 6, 0, -1179656, 6, 0, -1179655, 6, 0, -1179654, 6, 0, -1179653, 6, 0, -1179652, 6, 0, -1179651, 6, 0, -1179650, 6, 0, -1179649, 6, 0, -1245184, 6, 0, -1245183, 6, 0, -1245182, 6, 0, -1245181, 6, 0, -1245180, 6, 0, -1245179, 6, 0, -1245178, 6, 0, -1245177, 6, 0, -1245176, 6, 0, -1245175, 6, 0, -1245174, 6, 0, -1245173, 6, 0, -1245172, 6, 0, -1245171, 6, 0, -1245170, 6, 0, -1245169, 6, 0, -1245168, 6, 0, -1245167, 6, 0, -1245166, 6, 0, -1245165, 6, 0, -1245164, 6, 0, -1245163, 6, 0, -1245162, 6, 0, -1245161, 6, 0, -1245160, 6, 0, -1245159, 6, 0, -1245158, 6, 0, -1114123, 4, 0, -1179622, 3, 0, -1048587, 4, 0, -1048585, 40, 0, -1114086, 4, 0, -983051, 3, 0, -1048573, 13, 0, -1048550, 4, 0, -917515, 3, 0, -983014, 4, 0, -851979, 4, 0, -851974, 14, 0, -917478, 3, 0, -786443, 3, 0, -786441, 9, 0, -786438, 13, 0, -786434, 10, 0, -851957, 39, 0, -851950, 19, 0, -851942, 4, 0, -851940, 43, 0, -720907, 4, 0, -720901, 14, 0, -786428, 9, 0, -786424, 13, 0, -786406, 4, 0, -655371, 3, 0, -720874, 40, 0, -720870, 3, 0, -589835, 4, 0, -655341, 40, 0, -524299, 3, 0, -589798, 4, 0, -589796, 43, 0, -458763, 4, 0, -524262, 3, 0, -524255, 30, 131076, -393227, 3, 0, -458726, 3, 0, -458724, 43, 0, -327691, 4, 0, -327682, 14, 0, -393202, 10, 0, -393201, 9, 0, -393190, 4, 0, -262155, 4, 0, -327667, 8, 0, -327654, 3, 0, -327650, 30, 262147, -327649, 30, 262147, -327648, 30, 262147, -196619, 3, 0, -196614, 39, 0, -196609, 13, 0, -262118, 4, 0, -262113, 30, 262147, -262112, 30, 262147, -262111, 30, 262147, -131083, 4, 0, -196582, 3, 0, -65550, 40, 0, -65547, 3, 0, -131051, 41, 0, -131044, 43, 0, -11, 4, 0, -65506, 30, 262147, -65503, 30, 262147, 65525, 4, 0, 29, 1, 0, 30, 30, 262147, 31, 30, 262147, 32, 30, 262147, 33, 30, 262147, 34, 30, 262147, 131061, 3, 0, 131066, 43, 0, 65566, 30, 262147, 65567, 30, 262147, 65568, 30, 262147, 65569, 30, 262147, 65570, 30, 262147, 196597, 4, 0, 131098, 4, 0, 131102, 30, 262147, 131103, 30, 262147, 131104, 30, 262147, 131105, 30, 262147, 131106, 30, 262147, 262129, 40, 0, 262133, 3, 0, 196632, 41, 0, 196634, 3, 0, 196638, 30, 262147, 196639, 30, 262147, 196640, 30, 262147, 196641, 30, 262147, 196642, 30, 262147, 327669, 4, 0, 327672, 40, 0, 262163, 41, 0, 262170, 4, 0, 262172, 43, 0, 262174, 30, 262147, 262175, 30, 262147, 262176, 30, 262147, 262177, 30, 262147, 262178, 30, 262147, 393205, 3, 0, 327706, 4, 0, 327713, 30, 262147, 458741, 4, 0, 393242, 3, 0, 393246, 30, 262147, 393248, 30, 262147, 393249, 30, 262147, 524277, 4, 0, 458778, 4, 0, 589813, 4, 0, 524310, 10, 0, 524314, 4, 0, 655349, 3, 0, 589850, 3, 0, 720885, 3, 0, 655376, 9, 0, 655386, 4, 0, 786421, 3, 0, 720902, 9, 0, 720922, 3, 0, 720924, 43, 0, 851957, 3, 0, 786458, 4, 0, 917490, 40, 0, 917493, 4, 0, 917501, 40, 0, 851994, 4, 0, 983029, 4, 0, 983034, 19, 0, 917518, 40, 0, 917527, 40, 0, 917530, 3, 0, 917532, 43, 0, 1048565, 2, 0, 983041, 40, 0, 983058, 19, 0, 983066, 4, 0, 1114101, 4, 0, 1048602, 4, 0, 1179637, 4, 0, 1114138, 4, 0, 1245173, 2, 0, 1179674, 3, 0, 1310709, 2, 0, 1245210, 4, 0, 1376246, 6, 0, 1376247, 6, 0, 1376248, 6, 0, 1376249, 6, 0, 1376250, 6, 0, 1376251, 6, 0, 1376252, 6, 0, 1376253, 6, 0, 1376254, 6, 0, 1376255, 6, 0, 1310720, 6, 0, 1310721, 6, 0, 1310722, 6, 0, 1310723, 6, 0, 1310724, 6, 0, 1310725, 6, 0, 1310726, 6, 0, 1310727, 6, 0, 1310728, 6, 0, 1310729, 6, 0, 1310730, 6, 0, 1310731, 6, 0, 1310732, 6, 0, 1310733, 6, 0, 1310734, 6, 0, 1310735, 6, 0, 1310736, 6, 0, 1310737, 6, 0, 1310738, 6, 0, 1310739, 6, 0, 1310740, 6, 0, 1310741, 6, 0, 1310742, 6, 0, 1310743, 6, 0, 1310744, 6, 0, 1310745, 6, 0, 1310746, 6, 0, 1376284, 43, 0, 1638390, 40, 0, 1769470, 40, 0, 1703955, 40, 0, 1835037, 43, 0 )
 
 [node name="Player" parent="TileMap" instance=ExtResource( 2 )]
-timer_run = 0.1
-timer_attack = 0.1
+timer_idel = 0.15
+timer_run = 0.08
+timer_attack = 0.08

@@ -71,14 +71,14 @@ impl Player {
         self.load_assets_for_mir(&a);
         //获取精灵节点
         let w = _owner
-            .get_node_as("Sprite")
+            .get_node_as("YSort/Sprite")
             .and_then(|f: TRef<Sprite>| f.cast::<Sprite>())
             .unwrap();
         //保存精灵节点
         self.play_sprite.push(Some(w.claim()));
         //获取武器节点
         let w = _owner
-            .get_node_as("weapon")
+            .get_node_as("YSort/weapon")
             .and_then(|f: TRef<Sprite>| f.cast::<Sprite>())
             .unwrap();
         //保存武器节点
@@ -139,7 +139,7 @@ impl Player {
         }
 
         //鼠标右键点击 攻击
-        if Input::is_mouse_button_pressed(&input, 2) && self.state == Action::Idle(0) {
+        if Input::is_mouse_button_pressed(input, 2) && self.state == Action::Idle(0) {
             let audio = _owner
                 .get_node_as("audio")
                 .and_then(|t: TRef<AudioStreamPlayer2D>| t.cast::<AudioStreamPlayer2D>())
@@ -155,10 +155,10 @@ impl Player {
             self.timer_flg = self.timer_attack;
             self.anim_name = self.dir.to_string() + "_attack_";
         }
-        if Input::is_action_pressed(&input, "f1", false) {
+        if Input::is_action_pressed(input, "f1", false) {
             self.change_skill("banyue".to_string());
         }
-        if Input::is_action_pressed(&input, "f2", false) {
+        if Input::is_action_pressed(input, "f2", false) {
             self.change_skill("liehuo".to_string());
         }
     }

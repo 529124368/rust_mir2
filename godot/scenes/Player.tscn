@@ -1,12 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/audio/man_attack.wav" type="AudioStream" id=1]
 [ext_resource path="res://native/player.gdns" type="Script" id=2]
 [ext_resource path="res://assets/UI_start/12.png" type="Texture" id=3]
 [ext_resource path="res://assets/UI_start/0.png" type="Texture" id=4]
-
-[sub_resource type="CanvasItemMaterial" id=2]
-blend_mode = 1
 
 [sub_resource type="CanvasItemMaterial" id=3]
 blend_mode = 1
@@ -22,6 +19,21 @@ timer_attack = 0.04
 move_speed = 200.0
 sprite_name = "man"
 
+[node name="YSort" type="YSort" parent="."]
+position = Vector2( 0, 1 )
+
+[node name="Sprite" type="Sprite" parent="YSort"]
+z_as_relative = false
+centered = false
+
+[node name="weapon" type="Sprite" parent="YSort"]
+z_as_relative = false
+centered = false
+
+[node name="skill" type="Sprite" parent="."]
+material = SubResource( 3 )
+centered = false
+
 [node name="TextureProgress" type="TextureProgress" parent="."]
 margin_top = -62.0
 margin_right = 32.0
@@ -30,22 +42,6 @@ rect_scale = Vector2( 1.48854, 1.35555 )
 value = 50.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, 1 )
-centered = false
-
-[node name="swing" type="Sprite" parent="."]
-material = SubResource( 2 )
-centered = false
-
-[node name="skill" type="Sprite" parent="."]
-material = SubResource( 3 )
-centered = false
-
-[node name="weapon" type="Sprite" parent="."]
-position = Vector2( 0, 1 )
-centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 24, 30 )

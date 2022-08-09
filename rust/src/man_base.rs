@@ -1,6 +1,6 @@
 use gdnative::{
     api::File,
-    prelude::{Ref, ResourceLoader, Sprite, StringArray, Texture, Unique, Vector2},
+    prelude::{Ref, ResourceLoader, Sprite, Texture, Vector2},
 };
 use std::collections::HashMap;
 
@@ -9,7 +9,7 @@ use crate::tools::{
     json_read::{Offset, Skill, T},
 };
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Eq)]
 pub enum Action {
     Idle(u8),
     Run(u8),
@@ -63,7 +63,7 @@ impl ManBase {
             //获取精灵
             let s = self.play_sprite[i].unwrap().assume_safe();
             //更新图片
-            let n = (&self.anim_name).to_string() + &frame_num.to_string() + ".png";
+            let n = (self.anim_name).to_string() + &frame_num.to_string() + ".png";
             s.set_texture(tools::get_texture::get_img_by_name(
                 self.img_assets[i].as_ref().unwrap(),
                 self.json_data[i].get(&n).unwrap(),
@@ -90,7 +90,7 @@ impl ManBase {
                     .unwrap(),
                 _ => todo!(),
             };
-            let res: Vec<&str> = ss.split("_").collect();
+            let res: Vec<&str> = ss.split('_').collect();
             let res: Vec<f32> = res.iter().map(|x| x.parse::<f32>().unwrap()).collect();
             s.set_position(Vector2 {
                 x: res[0],
@@ -128,7 +128,7 @@ impl ManBase {
                 .unwrap(),
             _ => todo!(),
         };
-        let res: Vec<&str> = ss.split("_").collect();
+        let res: Vec<&str> = ss.split('_').collect();
         let res: Vec<f32> = res.iter().map(|x| x.parse::<f32>().unwrap()).collect();
         s.set_position(Vector2 {
             x: res[0],
@@ -186,7 +186,7 @@ impl ManBase {
         //加载资源
         let im = ResourceLoader::godot_singleton();
         let asset =
-            ResourceLoader::load(&im, image_path, "", false).and_then(|s| s.cast::<Texture>());
+            ResourceLoader::load(im, image_path, "", false).and_then(|s| s.cast::<Texture>());
         //加载偏移json offset
         File::open(&json_file, json_offset, File::READ).unwrap();
         let s = json_file.get_as_text();
@@ -210,7 +210,7 @@ impl ManBase {
         //加载资源
         let im = ResourceLoader::godot_singleton();
         let asset =
-            ResourceLoader::load(&im, image_path, "", false).and_then(|s| s.cast::<Texture>());
+            ResourceLoader::load(im, image_path, "", false).and_then(|s| s.cast::<Texture>());
         //加载偏移json offset
         File::open(&json_file, json_offset, File::READ).unwrap();
         let s = json_file.get_as_text();
