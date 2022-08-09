@@ -67,8 +67,8 @@ impl Player {
         self.bind_signal_method(_owner, "body_exited", "_on_player_exit");
         TARGETS = _owner.position();
         //加载素材
-        let a = self.sprite_name.clone();
-        self.load_assets_for_mir(&a);
+        let a = self.sprite_name.to_string();
+        self.load_assets_for_mir(&a, "zhanshi", "tulong");
         //获取精灵节点
         let w = _owner
             .get_node_as("YSort/Sprite")

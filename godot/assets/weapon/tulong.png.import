@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/61.bmp-e2ceab410a5572085f6c67348ba4a9e6.stex"
+path="res://.import/tulong.png-ecfb70f7f5f53bbbe70b3c257a350c83.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/items/61.bmp"
-dest_files=[ "res://.import/61.bmp-e2ceab410a5572085f6c67348ba4a9e6.stex" ]
+source_file="res://assets/weapon/tulong.png"
+dest_files=[ "res://.import/tulong.png-ecfb70f7f5f53bbbe70b3c257a350c83.stex" ]
 
 [params]
 

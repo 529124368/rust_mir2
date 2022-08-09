@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/68.bmp-e420554b5a9fd1e650eae28f54a57877.stex"
+path="res://.import/zhanshi.png-c0169818564e8064b4d125cf5847dcbf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/items/68.bmp"
-dest_files=[ "res://.import/68.bmp-e420554b5a9fd1e650eae28f54a57877.stex" ]
+source_file="res://assets/skill/zhanshi.png"
+dest_files=[ "res://.import/zhanshi.png-c0169818564e8064b4d125cf5847dcbf.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/man.png-156f05f6a80a2e4a629e8845d9a40a9b.stex"
+path="res://.import/lan.png-32a6dd23bb8052b34e38cc3b561b51f8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/swing/man.png"
-dest_files=[ "res://.import/man.png-156f05f6a80a2e4a629e8845d9a40a9b.stex" ]
+source_file="res://assets/UI_start/lan.png"
+dest_files=[ "res://.import/lan.png-32a6dd23bb8052b34e38cc3b561b51f8.stex" ]
 
 [params]
 

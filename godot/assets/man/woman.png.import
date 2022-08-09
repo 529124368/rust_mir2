@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/man.png-776393b25868604cd329eb8fd28faba0.stex"
+path="res://.import/woman.png-18469402c985a8e58216b39095912390.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapon/man.png"
-dest_files=[ "res://.import/man.png-776393b25868604cd329eb8fd28faba0.stex" ]
+source_file="res://assets/man/woman.png"
+dest_files=[ "res://.import/woman.png-18469402c985a8e58216b39095912390.stex" ]
 
 [params]
 

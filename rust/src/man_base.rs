@@ -136,15 +136,21 @@ impl ManBase {
         });
     }
     //加载资源 传奇用
-    pub fn load_assets_for_mir(&mut self, name: &str) {
+    pub fn load_assets_for_mir(&mut self, name: &str, skill: &str, weapon: &str) {
+        let mut name = name;
         //加载技能
-        self.load_assets_for_skill(name);
+        self.load_assets_for_skill(skill);
         //加载玩家 武器
         for i in 0..self.nodes.len() {
+            if self.nodes[i] == "weapon" {
+                name = weapon;
+            }
             //人物
             let json_path = &("res://assets/".to_string() + &self.nodes[i] + "/" + name + ".json");
             let image_path = &("res://assets/".to_string() + &self.nodes[i] + "/" + name + ".png");
-            let json_offset = &("res://assets/".to_string() + &self.nodes[i] + "/data.json");
+            let json_offset =
+                &("res://assets/".to_string() + &self.nodes[i] + "/" + name + "_offset.json");
+
             //json 加载
             let res = self.common_load(json_path, image_path, json_offset);
             //加载偏移json offset
@@ -160,7 +166,7 @@ impl ManBase {
         //人物
         let json_path = &("res://assets/skill/".to_string() + name + ".json");
         let image_path = &("res://assets/skill/".to_string() + name + ".png");
-        let json_offset = "res://assets/skill//data.json";
+        let json_offset = &("res://assets/skill/".to_string() + name + "_offset.json");
         //json 加载
         let res = self.common_load_skill(json_path, image_path, json_offset);
         //加载偏移json offset
