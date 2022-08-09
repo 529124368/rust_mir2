@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/646.png-dfc2e69f4b51219c2fb592393795e694.stex"
+path="res://.import/bagon.png-b46f058239af3e7c71cebd40a61ebbe4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI_start/646.png"
-dest_files=[ "res://.import/646.png-dfc2e69f4b51219c2fb592393795e694.stex" ]
+source_file="res://assets/UI_start/bagon.png"
+dest_files=[ "res://.import/bagon.png-b46f058239af3e7c71cebd40a61ebbe4.stex" ]
 
 [params]
 

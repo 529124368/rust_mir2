@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/646.png-dfc2e69f4b51219c2fb592393795e694.stex"
+path="res://.import/55.png-3e6d43468363fc272d726480f2856bee.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI_start/646.png"
-dest_files=[ "res://.import/646.png-dfc2e69f4b51219c2fb592393795e694.stex" ]
+source_file="res://assets/bagitem/55.png"
+dest_files=[ "res://.import/55.png-3e6d43468363fc272d726480f2856bee.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0

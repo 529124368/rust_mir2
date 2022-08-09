@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://assets/UI_start/bar.bmp" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -11,7 +11,7 @@
 [ext_resource path="res://assets/items/297.bmp" type="Texture" id=9]
 [ext_resource path="res://assets/font/pf_normal.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://assets/items/85.bmp" type="Texture" id=11]
-[ext_resource path="res://assets/UI_start/586.bmp" type="Texture" id=12]
+[ext_resource path="res://assets/UI_start/bagon.png" type="Texture" id=12]
 [ext_resource path="res://assets/UI_start/1932.bmp" type="Texture" id=13]
 [ext_resource path="res://assets/items/hp.bmp" type="Texture" id=14]
 [ext_resource path="res://assets/items/mp.bmp" type="Texture" id=15]
@@ -24,6 +24,25 @@
 [ext_resource path="res://assets/UI_start/eqopen.png" type="Texture" id=22]
 [ext_resource path="res://assets/UI_start/eqdown.png" type="Texture" id=23]
 [ext_resource path="res://script/openeq.gd" type="Script" id=24]
+[ext_resource path="res://assets/UI_start/bagdown.png" type="Texture" id=25]
+[ext_resource path="res://assets/UI_start/xp.png" type="Texture" id=26]
+[ext_resource path="res://assets/UI_start/300.png" type="Texture" id=27]
+[ext_resource path="res://script/closebg.gd" type="Script" id=28]
+[ext_resource path="res://assets/bagitem/56.png" type="Texture" id=29]
+[ext_resource path="res://assets/bagitem/55.png" type="Texture" id=30]
+[ext_resource path="res://assets/bagitem/86.png" type="Texture" id=31]
+[ext_resource path="res://assets/bagitem/57.png" type="Texture" id=32]
+[ext_resource path="res://assets/bagitem/62.png" type="Texture" id=33]
+[ext_resource path="res://assets/bagitem/85.png" type="Texture" id=34]
+[ext_resource path="res://assets/bagitem/121.png" type="Texture" id=35]
+[ext_resource path="res://assets/audio/open.wav" type="AudioStream" id=36]
+
+[sub_resource type="DynamicFont" id=6]
+size = 10
+font_data = ExtResource( 10 )
+
+[sub_resource type="Theme" id=7]
+default_font = SubResource( 6 )
 
 [sub_resource type="DynamicFont" id=4]
 extra_spacing_bottom = 6
@@ -55,11 +74,12 @@ autoplay = true
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="menu" type="Control" parent="CanvasLayer"]
-margin_left = -118.0
-margin_top = 1.0
-margin_right = -118.0
-margin_bottom = 1.0
+margin_left = -117.0
+margin_top = 3.0
+margin_right = -117.0
+margin_bottom = 3.0
 rect_pivot_offset = Vector2( 513, 306 )
+theme = SubResource( 7 )
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/menu"]
 margin_left = 117.0
@@ -69,9 +89,9 @@ margin_bottom = 599.0
 texture = ExtResource( 1 )
 
 [node name="TextureRect2" type="TextureRect" parent="CanvasLayer/menu"]
-margin_left = 116.0
+margin_left = 117.0
 margin_top = 476.0
-margin_right = 220.0
+margin_right = 221.0
 margin_bottom = 556.0
 texture = ExtResource( 3 )
 
@@ -129,9 +149,69 @@ margin_left = 798.0
 margin_top = 523.0
 margin_right = 818.0
 margin_bottom = 543.0
+rect_scale = Vector2( 1, 0.992531 )
 texture_normal = ExtResource( 22 )
 texture_pressed = ExtResource( 23 )
 script = ExtResource( 24 )
+
+[node name="openbg" type="TextureButton" parent="CanvasLayer/menu"]
+margin_left = 821.0
+margin_top = 522.0
+margin_right = 841.0
+margin_bottom = 542.0
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 25 )
+script = ExtResource( 28 )
+
+[node name="xp" type="TextureProgress" parent="CanvasLayer/menu"]
+margin_left = 126.0
+margin_top = 590.0
+margin_right = 1130.0
+margin_bottom = 598.0
+rect_scale = Vector2( 0.781741, 0.850286 )
+value = 80.0
+texture_progress = ExtResource( 26 )
+
+[node name="level" type="RichTextLabel" parent="CanvasLayer/menu"]
+margin_left = 125.0
+margin_top = 555.0
+margin_right = 140.0
+margin_bottom = 570.0
+bbcode_enabled = true
+bbcode_text = "[color=red]55[/color]"
+text = "55"
+scroll_active = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/menu"]
+margin_left = 143.0
+margin_top = 485.0
+margin_right = 192.0
+margin_bottom = 538.0
+bbcode_enabled = true
+bbcode_text = "100   100
+--------
+100    100
+
+"
+text = "100   100
+--------
+100    100
+
+"
+scroll_active = false
+
+[node name="name" type="RichTextLabel" parent="CanvasLayer/menu"]
+margin_left = 141.0
+margin_top = 570.0
+margin_right = 198.0
+margin_bottom = 585.0
+bbcode_enabled = true
+bbcode_text = "[color=green]比奇新手村[/color]"
+text = "比奇新手村"
+scroll_active = false
+
+[node name="audio" type="AudioStreamPlayer2D" parent="CanvasLayer/menu"]
+stream = ExtResource( 36 )
 
 [node name="eq" type="Control" parent="CanvasLayer"]
 visible = false
@@ -233,6 +313,20 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/eq/TextureRect2"]
+margin_left = 171.0
+margin_top = 79.0
+margin_right = 207.0
+margin_bottom = 109.0
+texture = ExtResource( 34 )
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/eq/TextureRect2"]
+margin_left = 135.0
+margin_top = 80.0
+margin_right = 167.0
+margin_bottom = 108.0
+texture = ExtResource( 32 )
+
 [node name="closeEq" type="TextureButton" parent="CanvasLayer/eq"]
 margin_left = 753.0
 margin_top = 14.0
@@ -286,11 +380,68 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/bag"]
-margin_left = 14.0
-margin_top = 10.0
-margin_right = 402.0
-margin_bottom = 356.0
-texture = ExtResource( 12 )
+margin_right = 396.0
+margin_bottom = 490.0
+rect_scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 27 )
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
+margin_left = 236.0
+margin_top = 185.0
+margin_right = 272.0
+margin_bottom = 217.0
+texture = ExtResource( 30 )
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
+margin_left = 273.75
+margin_top = 187.5
+margin_right = 306.75
+margin_bottom = 218.5
+texture = ExtResource( 29 )
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
+margin_left = 200.0
+margin_top = 187.5
+margin_right = 232.0
+margin_bottom = 215.5
+texture = ExtResource( 32 )
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
+margin_left = 161.25
+margin_top = 188.75
+margin_right = 197.25
+margin_bottom = 212.75
+texture = ExtResource( 33 )
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
+margin_left = 162.5
+margin_top = 121.25
+margin_right = 198.5
+margin_bottom = 151.25
+texture = ExtResource( 34 )
+
+[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
+margin_left = 86.25
+margin_top = 152.5
+margin_right = 122.25
+margin_bottom = 185.5
+texture = ExtResource( 35 )
+
+[node name="TextureRect7" type="TextureRect" parent="CanvasLayer/bag/TextureRect"]
+margin_left = 308.75
+margin_top = 120.0
+margin_right = 344.75
+margin_bottom = 150.0
+texture = ExtResource( 31 )
+
+[node name="closebg" type="TextureButton" parent="CanvasLayer/bag"]
+margin_left = 295.0
+margin_top = 1.0
+margin_right = 311.0
+margin_bottom = 18.0
+rect_scale = Vector2( 1.11852, 1.08333 )
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 20 )
 
 [node name="floor" type="TileMap" parent="."]
 mode = 1
@@ -315,5 +466,3 @@ tile_data = PoolIntArray( -1179660, 6, 0, -1179659, 6, 0, -1179658, 6, 0, -11796
 [node name="Player" parent="TileMap" instance=ExtResource( 2 )]
 timer_run = 0.1
 timer_attack = 0.1
-
-[connection signal="pressed" from="CanvasLayer/menu/openeq" to="TileMap/Player" method="_on_openeq_pressed"]

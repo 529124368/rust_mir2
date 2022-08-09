@@ -1,13 +1,14 @@
 extends TextureButton
 
-var eq 
+var bg
 var audio
+
 func _ready(): 
-	eq = self.get_node("../../eq")
+	bg = self.get_node("../../bag")
 	audio = self.get_node("../audio")
+	
 func _pressed():
-	eq.visible = !eq.visible
+	bg.visible = !bg.visible
 	audio.play()
 	
-
 

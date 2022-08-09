@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/586.bmp-a1c8623d20d47bdf5bb814ea2d7393d3.stex"
+path="res://.import/121.png-f1bfda6cb3a9dfd1493a6eb68e4cd6db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI_start/586.bmp"
-dest_files=[ "res://.import/586.bmp-a1c8623d20d47bdf5bb814ea2d7393d3.stex" ]
+source_file="res://assets/bagitem/121.png"
+dest_files=[ "res://.import/121.png-f1bfda6cb3a9dfd1493a6eb68e4cd6db.stex" ]
 
 [params]
 
