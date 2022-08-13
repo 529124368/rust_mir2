@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/audio/M2-1.wav" type="AudioStream" id=1]
 [ext_resource path="res://assets/UI_start/12.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI_start/0.png" type="Texture" id=3]
+[ext_resource path="res://native/otherPlayer.gdns" type="Script" id=4]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 blend_mode = 1
@@ -12,6 +13,13 @@ radius = 9.0
 
 [node name="otherPlayer" type="Area2D"]
 position = Vector2( -2, 0 )
+script = ExtResource( 4 )
+timer_idel = 0.15
+sprite_name = "man"
+timer_run = 0.08
+timer_attack = 0.08
+move_speed = 200.0
+disection_diy = 4
 
 [node name="YSort" type="YSort" parent="."]
 position = Vector2( 0, 1 )

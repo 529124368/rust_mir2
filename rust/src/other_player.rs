@@ -1,10 +1,10 @@
+use gdnative::api::*;
+use gdnative::prelude::user_data::MutexData;
+use gdnative::prelude::*;
+use lsz_macro::lszMacro;
 use std::ops::Deref;
 use std::ops::DerefMut;
 use std::ops::Mul;
-
-use gdnative::api::*;
-use gdnative::prelude::*;
-use lsz_macro::lszMacro;
 
 use crate::man_base;
 use crate::man_base::ManBase;
@@ -13,6 +13,7 @@ use crate::man_base::ManBase;
 #[derive(NativeClass, lszMacro)]
 #[inherit(Area2D)]
 #[register_with(Self::register_builder)]
+#[user_data(MutexData<OtherPlayer>)]
 pub struct OtherPlayer {
     man: ManBase,
     #[property]

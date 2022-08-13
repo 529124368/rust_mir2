@@ -53,7 +53,7 @@ impl Player {
             timer_flg: 0.2,
             move_speed: 100.0,
             is_block: false,
-            step_nums: [4, 6, 6],
+            step_nums: [4, 6, 6], //idle run attack 的图片个数
             timer_tick: 0.0,
             sum: 0,
             speed: Vector2 { x: 0.0, y: 0.0 },

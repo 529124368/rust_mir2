@@ -10,31 +10,34 @@ use tokio::time;
 use tokio_tungstenite::{connect_async, tungstenite::Message};
 
 /// The Websocket "class"
+
 #[derive(NativeClass, Clone)]
-#[inherit(Node)]
+#[inherit(Node2D)]
 #[register_with(Self::register_builder)]
 pub struct Websocket {
     url: String,
     send_channel: Arc<RwLock<Option<UnboundedSender<String>>>>,
     msg_input: Option<Ref<RichTextLabel>>,
+    my_node: Option<Ref<Node2D>>,
 }
-
 #[methods]
 impl Websocket {
     fn register_builder(_builder: &ClassBuilder<Self>) {
         godot_print!("Websocket builder is registered!");
     }
-    /// The "constructor" of the class.
-    fn new(_owner: &Node) -> Self {
+
+    fn new(_owner: &Node2D) -> Self {
         Websocket {
             url: "ws:127.0.0.1/chat".to_string(),
             send_channel: Arc::new(RwLock::new(None)),
             msg_input: None,
+            my_node: None,
         }
     }
 
     #[godot]
-    unsafe fn _ready(&mut self, #[base] _owner: &Node) {
+    unsafe fn _ready(&mut self, #[base] _owner: TRef<Node2D>) {
+        self.my_node = Some(_owner.claim());
         //获取输入节点
         let w = _owner
             .get_node_as("../../CanvasLayer/message/msg")
@@ -43,7 +46,7 @@ impl Websocket {
         self.msg_input = Some(w.claim());
         //输入信号注册
         self.bind_signal_method_by_path(
-            _owner,
+            _owner.as_ref(),
             "../../CanvasLayer/message/input",
             "text_entered",
             "_on_input_enter",
@@ -82,7 +85,7 @@ impl Websocket {
             let mut t = time::interval(Duration::from_secs(50));
             loop {
                 t.tick().await;
-                wss.send_mesg("beat_heat".to_string());
+                wss.send_mesg("#beat_heat&".to_string());
             }
         });
 
@@ -103,6 +106,11 @@ impl Websocket {
             };
             let data = res.into_data();
             let msg = std::str::from_utf8(&data).unwrap();
+            if msg.contains("上线了") {
+                unsafe {
+                    self.load_role();
+                }
+            }
             unsafe {
                 let inp = self.msg_input.unwrap().assume_safe();
                 let _ = inp.append_bbcode('\n'.to_string() + msg);
@@ -129,10 +137,10 @@ impl Websocket {
         }
     }
 
-    // //绑定其他节点信号
+    //绑定其他节点信号
     unsafe fn bind_signal_method_by_path(
         &self,
-        _owner: &Node,
+        _owner: &Node2D,
         node_path: &str,
         signal: &str,
         method: &str,
@@ -146,5 +154,31 @@ impl Websocket {
             0,
         )
         .unwrap();
+    }
+
+    unsafe fn load_role(&self) {
+        let role = ResourceLoader::godot_singleton().load(
+            "res://scenes/otherPlayer.tscn",
+            "PackedScene",
+            false,
+        );
+        if let Some(s) = role.and_then(|f| f.cast::<PackedScene>()) {
+            let instance = s.assume_safe().instance(0);
+            if let Some(instance) = instance {
+                instance.assume_safe().set_name("user1");
+                self.my_node
+                    .unwrap()
+                    .assume_safe()
+                    .add_child(instance, false);
+            }
+        }
+        let nodes = self
+            .my_node
+            .unwrap()
+            .assume_safe()
+            .get_node_as("user1")
+            .and_then(|f: TRef<Area2D>| f.cast::<Area2D>())
+            .unwrap();
+        nodes.set_position(Vector2 { x: 378.0, y: 64.0 });
     }
 }
