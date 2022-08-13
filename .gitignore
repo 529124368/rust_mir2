@@ -38,3 +38,5 @@ tramp
 bin/*
 godot/export_presets.cfg
 lib/*
+
+/release

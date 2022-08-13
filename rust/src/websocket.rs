@@ -3,7 +3,6 @@ use gdnative::api::*;
 use gdnative::prelude::*;
 use std::sync::{Arc, RwLock};
 use std::thread;
-use tokio::io::AsyncWriteExt;
 use tokio::sync::mpsc::UnboundedReceiver;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio_tungstenite::{connect_async, tungstenite::Message};
@@ -15,13 +14,11 @@ use tokio_tungstenite::{connect_async, tungstenite::Message};
 pub struct Websocket {
     url: String,
     send_channel: Arc<RwLock<Option<UnboundedSender<String>>>>,
+    msg_input: Option<Ref<RichTextLabel>>,
 }
 
-// __One__ `impl` block can have the `#[methods]` attribute, which will generate
-// code to automatically bind any exported methods to Godot.
 #[methods]
 impl Websocket {
-    // Register the builder for methods, properties and/or signals.
     fn register_builder(_builder: &ClassBuilder<Self>) {
         godot_print!("Websocket builder is registered!");
     }
@@ -30,11 +27,18 @@ impl Websocket {
         Websocket {
             url: "ws:127.0.0.1/chat".to_string(),
             send_channel: Arc::new(RwLock::new(None)),
+            msg_input: None,
         }
     }
 
     #[godot]
     unsafe fn _ready(&mut self, #[base] _owner: &Node) {
+        //获取输入节点
+        let w = _owner
+            .get_node_as("../../CanvasLayer/message/msg")
+            .and_then(|f: TRef<RichTextLabel>| f.cast::<RichTextLabel>())
+            .unwrap();
+        self.msg_input = Some(w.claim());
         //输入信号注册
         self.bind_signal_method_by_path(
             _owner,
@@ -55,20 +59,14 @@ impl Websocket {
         });
     }
 
-    // #[godot]
-
-    // unsafe fn _process(&self, #[base] _owner: &Node, delta: f64) {}
-
     //链接
     async fn conn(&mut self, mut chanel2: UnboundedReceiver<String>) {
-        godot_print!("进入了监听");
         let url = url::Url::parse(&self.url).unwrap();
         //消息传送管道
         let (stdin_tx, stdin_rx) = futures_channel::mpsc::unbounded();
 
         tokio::task::spawn(async move {
             while let Some(s) = chanel2.recv().await {
-                godot_print!("获取到消息了在巡乱队列里:{}", s);
                 stdin_tx
                     .unbounded_send(Message::binary(s.into_bytes()))
                     .unwrap();
@@ -91,13 +89,15 @@ impl Websocket {
                 }
             };
             let data = res.into_data();
-            tokio::io::stdout().write_all(&data).await.unwrap();
+            let msg = std::str::from_utf8(&data).unwrap();
+            unsafe {
+                let inp = self.msg_input.unwrap().assume_safe();
+                let _ = inp.append_bbcode('\n'.to_string() + msg);
+            }
         });
-        //
 
         pin_mut!(stdin_to_ws, ws_to_stdout);
         future::select(stdin_to_ws, ws_to_stdout).await;
-        godot_print!("结束了监听");
     }
 
     #[godot]
@@ -108,13 +108,11 @@ impl Websocket {
     }
 
     fn send_mesg(&self, msg: String) {
-        let _ = self
-            .send_channel
-            .write()
-            .unwrap()
-            .as_ref()
-            .unwrap()
-            .send(msg);
+        if let Ok(s) = self.send_channel.write() {
+            if let Some(b) = s.as_ref() {
+                let _ = b.send(msg);
+            }
+        }
     }
 
     // //绑定其他节点信号
