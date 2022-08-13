@@ -45,7 +45,7 @@ impl ManBase {
             play_sprite: Vec::new(),
             //当前状态
             state: Action::Idle(0),
-            dir: 0,
+            dir: 4,
             anim_name: "0_stand_".to_string(),
             nodes: ["man".to_string(), "weapon".to_string()],
             //技能相关

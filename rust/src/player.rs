@@ -8,10 +8,6 @@ use lsz_macro::lszMacro;
 use std::ops::Deref;
 use std::ops::DerefMut;
 use std::ops::Mul;
-static mut SUM: u8 = 0;
-static mut TIMER_TICK: f64 = 0.0;
-static mut TARGETS: Vector2 = Vector2 { x: 0.0, y: 0.0 };
-static mut SPEED: Vector2 = Vector2 { x: 0.0, y: 0.0 };
 static mut CENTER: Vector2 = Vector2 { x: 400.0, y: 300.0 };
 static mut PRESS: bool = false;
 /// The Player "class"
@@ -35,8 +31,10 @@ pub struct Player {
     is_block: bool,
     //各个动作的动画帧数
     step_nums: [u8; 3],
-    //
-    //ws: Websocket,
+    timer_tick: f64,
+    sum: u8,
+    speed: Vector2,
+    target: Vector2,
 }
 
 #[methods]
@@ -45,7 +43,6 @@ impl Player {
         _builder.signal("enter").done();
     }
 
-    /// The "constructor" of the class.
     fn new(_owner: &Area2D) -> Self {
         Player {
             sprite_name: "man".to_string(),
@@ -57,7 +54,10 @@ impl Player {
             move_speed: 100.0,
             is_block: false,
             step_nums: [4, 6, 6],
-            // ws: Websocket::new("ws:127.0.0.1/chat".to_string()),
+            timer_tick: 0.0,
+            sum: 0,
+            speed: Vector2 { x: 0.0, y: 0.0 },
+            target: Vector2 { x: 0.0, y: 0.0 },
         }
     }
 
@@ -68,7 +68,7 @@ impl Player {
         //碰撞退出信号注册
         self.bind_signal_method(_owner, "body_exited", "_on_player_exit");
 
-        TARGETS = _owner.position();
+        self.target = _owner.position();
         //加载素材
         let a = self.sprite_name.to_string();
         self.load_assets_for_mir(&a, "zhanshi", "tulong");
@@ -94,43 +94,42 @@ impl Player {
         self.skill_sprite = Some(w.claim());
     }
 
-    // This function will be called in every frame
     #[godot]
     unsafe fn _process(&mut self, #[base] _owner: &Area2D, delta: f64) {
         let input = Input::godot_singleton();
         //轮图
-        TIMER_TICK += delta;
-        if TIMER_TICK > self.timer_flg {
+        self.timer_tick += delta;
+        if self.timer_tick > self.timer_flg {
             let action = match self.state {
                 man_base::Action::Idle(a) => a,
                 man_base::Action::Run(b) => b,
                 man_base::Action::Attack(c) => c,
             };
-            TIMER_TICK = 0.0;
-            SUM %= self.step_nums[action as usize];
+            self.timer_tick = 0.0;
+            self.sum %= self.step_nums[action as usize];
 
             //裁剪图集
-            self.render_sprite(action, SUM);
+            self.render_sprite(action, self.sum);
             //
             if action == 2 {
-                self.render_skill(SUM);
+                self.render_skill(self.sum);
             } else {
                 self.skill_sprite
                     .unwrap()
                     .assume_safe()
                     .set_texture(Texture::null());
             }
-            SUM += 1;
+            self.sum += 1;
         }
 
         //移动
-        SPEED = _owner.position().direction_to(TARGETS) * self.move_speed;
-        if _owner.position().distance_to(TARGETS) > 3.0 && !self.is_block {
+        self.speed = _owner.position().direction_to(self.target) * self.move_speed;
+        if _owner.position().distance_to(self.target) > 3.0 && !self.is_block {
             self.state = man_base::Action::Run(1);
             //修改播放速度
             self.timer_flg = self.timer_run;
             self.anim_name = self.dir.to_string() + "_run_";
-            let pos = SPEED.mul(delta as f32);
+            let pos = self.speed.mul(delta as f32);
             let newx = _owner.position().x + pos.x;
             let newy = _owner.position().y + pos.y;
             _owner.set_position(Vector2 { x: newx, y: newy });
@@ -151,7 +150,7 @@ impl Player {
                 audio.play(0.0);
             }
             if self.state != man_base::Action::Attack(2) {
-                SUM = 0;
+                self.sum = 0;
             }
             self.state = man_base::Action::Attack(2);
             //修改播放速度
@@ -177,7 +176,7 @@ impl Player {
             if let Some(viewport) = _owner.get_viewport().map(|f| f.assume_safe()) {
                 let target = viewport.get_mouse_position();
                 self.dir = tools::math::cal_d(tools::math::cal_dir(CENTER, target));
-                TARGETS = tools::math::add(_owner.position(), tools::math::sub(CENTER, target));
+                self.target = tools::math::add(_owner.position(), tools::math::sub(CENTER, target));
                 let state2d = _owner
                     .get_world_2d()
                     .unwrap()
@@ -187,7 +186,7 @@ impl Player {
                     .assume_safe()
                     .intersect_ray(
                         _owner.position(),
-                        TARGETS,
+                        self.target,
                         VariantArray::new_shared(),
                         2147483647,
                         true,
@@ -206,7 +205,7 @@ impl Player {
     #[godot]
     unsafe fn _on_player_enter(&mut self, #[base] _owner: &Area2D, _data: Variant) {
         //godot_print!("发生了碰撞");
-        TARGETS = _owner.position();
+        self.target = _owner.position();
         self.is_block = true;
         _owner.emit_signal("enter", &[]);
     }
@@ -215,32 +214,6 @@ impl Player {
     unsafe fn _on_player_exit(&mut self, #[base] _owner: &Area2D, _data: Variant) {
         self.is_block = false;
         //godot_print!("退出碰撞");
-    }
-
-    #[godot]
-    unsafe fn _on_input_enter(&mut self, #[base] _owner: &Area2D, _data: Variant) {
-        // let mess = _data.to_string();
-        // let ws = self.ws.clone();
-        // ws.send_mesg(mess);
-    }
-
-    // //绑定其他节点信号
-    unsafe fn bind_signal_method_by_path(
-        &self,
-        _owner: &Area2D,
-        node_path: &str,
-        signal: &str,
-        method: &str,
-    ) {
-        let emit = _owner.get_node(node_path).unwrap().assume_safe();
-        emit.connect(
-            signal,
-            _owner.assume_shared(),
-            method,
-            VariantArray::new_shared(),
-            0,
-        )
-        .unwrap();
     }
 
     //绑定本身的信号

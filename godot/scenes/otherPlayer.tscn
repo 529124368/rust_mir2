@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/audio/M2-1.wav" type="AudioStream" id=1]
+[ext_resource path="res://assets/UI_start/12.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI_start/0.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 9.0
+
+[node name="otherPlayer" type="Area2D"]
+position = Vector2( -2, 0 )
+
+[node name="YSort" type="YSort" parent="."]
+position = Vector2( 0, 1 )
+
+[node name="Sprite" type="Sprite" parent="YSort"]
+z_as_relative = false
+centered = false
+
+[node name="weapon" type="Sprite" parent="YSort"]
+z_as_relative = false
+centered = false
+
+[node name="skill" type="Sprite" parent="."]
+material = SubResource( 1 )
+centered = false
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_top = -62.0
+margin_right = 32.0
+margin_bottom = -58.0
+rect_scale = Vector2( 1.48854, 1.35555 )
+value = 50.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -2, 0 )
+shape = SubResource( 2 )
+
+[node name="audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )

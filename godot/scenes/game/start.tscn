@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://assets/UI_start/bar.bmp" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -41,6 +41,8 @@
 [ext_resource path="res://assets/UI_start/346.png" type="Texture" id=39]
 [ext_resource path="res://script/input.gd" type="Script" id=40]
 [ext_resource path="res://native/websocket.gdns" type="Script" id=41]
+[ext_resource path="res://scenes/otherPlayer.tscn" type="PackedScene" id=42]
+[ext_resource path="res://native/otherPlayer.gdns" type="Script" id=43]
 
 [sub_resource type="DynamicFont" id=6]
 size = 10
@@ -1018,5 +1020,35 @@ sprite_name = "woman"
 
 [node name="websocket" type="Node" parent="TileMap"]
 script = ExtResource( 41 )
+
+[node name="otherPlayer" parent="TileMap" instance=ExtResource( 42 )]
+position = Vector2( 251, 74.972 )
+script = ExtResource( 43 )
+timer_idel = 0.15
+sprite_name = "man"
+timer_run = 0.08
+timer_attack = 0.08
+move_speed = 200.0
+disection_diy = 3
+
+[node name="otherPlayer2" parent="TileMap" instance=ExtResource( 42 )]
+position = Vector2( 252, 176.972 )
+script = ExtResource( 43 )
+timer_idel = 0.15
+sprite_name = "woman"
+timer_run = 0.08
+timer_attack = 0.08
+move_speed = 200.0
+disection_diy = 4
+
+[node name="otherPlayer3" parent="TileMap" instance=ExtResource( 42 )]
+position = Vector2( 110, 175.972 )
+script = ExtResource( 43 )
+timer_idel = 0.15
+sprite_name = "man"
+timer_run = 0.08
+timer_attack = 0.08
+move_speed = 200.0
+disection_diy = 5
 
 [connection signal="text_entered" from="CanvasLayer/message/input" to="CanvasLayer/message/input" method="_on_input_text_entered"]

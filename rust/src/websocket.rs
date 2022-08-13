@@ -3,8 +3,10 @@ use gdnative::api::*;
 use gdnative::prelude::*;
 use std::sync::{Arc, RwLock};
 use std::thread;
+use std::time::Duration;
 use tokio::sync::mpsc::UnboundedReceiver;
 use tokio::sync::mpsc::UnboundedSender;
+use tokio::time;
 use tokio_tungstenite::{connect_async, tungstenite::Message};
 
 /// The Websocket "class"
@@ -46,7 +48,8 @@ impl Websocket {
             "text_entered",
             "_on_input_enter",
         );
-        //todo
+
+        //消息管道
         let (chane1, chanel2) = tokio::sync::mpsc::unbounded_channel::<String>();
         self.send_channel = Arc::new(RwLock::new(Some(chane1)));
         let mut ws = self.clone();
@@ -70,6 +73,16 @@ impl Websocket {
                 stdin_tx
                     .unbounded_send(Message::binary(s.into_bytes()))
                     .unwrap();
+            }
+        });
+
+        //心跳检测
+        let wss = self.clone();
+        tokio::task::spawn(async move {
+            let mut t = time::interval(Duration::from_secs(50));
+            loop {
+                t.tick().await;
+                wss.send_mesg("beat_heat".to_string());
             }
         });
 
@@ -101,6 +114,7 @@ impl Websocket {
     }
 
     #[godot]
+    //聊天消息
     unsafe fn _on_input_enter(&mut self, _data: Variant) {
         let mess = _data.to_string();
         godot_print!("输入消息为:{}", mess);

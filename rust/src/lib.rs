@@ -1,5 +1,5 @@
 mod man_base;
-mod mosnter;
+mod other_player;
 mod player;
 mod tools;
 mod websocket;
@@ -10,7 +10,7 @@ use gdnative::prelude::{godot_init, InitHandle};
 fn init(handle: InitHandle) {
     handle.add_class::<websocket::Websocket>();
     handle.add_class::<player::Player>();
-    handle.add_class::<mosnter::Mosnter>();
+    handle.add_class::<other_player::OtherPlayer>();
 }
 
 // macros that create the entry-points of the dynamic library.
