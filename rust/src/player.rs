@@ -1,14 +1,13 @@
+use crate::man_base;
+use crate::man_base::Action;
+use crate::man_base::ManBase;
+use crate::tools;
 use gdnative::api::*;
 use gdnative::prelude::*;
 use lsz_macro::lszMacro;
 use std::ops::Deref;
 use std::ops::DerefMut;
 use std::ops::Mul;
-
-use crate::man_base;
-use crate::man_base::Action;
-use crate::man_base::ManBase;
-use crate::tools;
 static mut SUM: u8 = 0;
 static mut TIMER_TICK: f64 = 0.0;
 static mut TARGETS: Vector2 = Vector2 { x: 0.0, y: 0.0 };
@@ -36,6 +35,8 @@ pub struct Player {
     is_block: bool,
     //各个动作的动画帧数
     step_nums: [u8; 3],
+    //
+    //ws: Websocket,
 }
 
 #[methods]
@@ -56,15 +57,17 @@ impl Player {
             move_speed: 100.0,
             is_block: false,
             step_nums: [4, 6, 6],
+            // ws: Websocket::new("ws:127.0.0.1/chat".to_string()),
         }
     }
 
-    #[export]
-    unsafe fn _ready(&mut self, _owner: &Area2D) {
+    #[godot]
+    unsafe fn _ready(&mut self, #[base] _owner: &Area2D) {
         //碰撞信号注册
         self.bind_signal_method(_owner, "body_entered", "_on_player_enter");
         //碰撞退出信号注册
         self.bind_signal_method(_owner, "body_exited", "_on_player_exit");
+
         TARGETS = _owner.position();
         //加载素材
         let a = self.sprite_name.to_string();
@@ -92,8 +95,8 @@ impl Player {
     }
 
     // This function will be called in every frame
-    #[export]
-    unsafe fn _process(&mut self, _owner: &Area2D, delta: f64) {
+    #[godot]
+    unsafe fn _process(&mut self, #[base] _owner: &Area2D, delta: f64) {
         let input = Input::godot_singleton();
         //轮图
         TIMER_TICK += delta;
@@ -163,8 +166,8 @@ impl Player {
         }
     }
 
-    #[export]
-    unsafe fn _unhandled_input(&mut self, _owner: &Area2D, _event: Ref<InputEvent>) {
+    #[godot]
+    unsafe fn _unhandled_input(&mut self, #[base] _owner: &Area2D, _event: Ref<InputEvent>) {
         if _event
             .assume_safe()
             .is_action_pressed("mouse_left", false, false)
@@ -200,38 +203,45 @@ impl Player {
         }
     }
 
-    #[export]
-    unsafe fn _on_player_enter(&mut self, _owner: &Area2D, _data: Variant) {
+    #[godot]
+    unsafe fn _on_player_enter(&mut self, #[base] _owner: &Area2D, _data: Variant) {
         //godot_print!("发生了碰撞");
         TARGETS = _owner.position();
         self.is_block = true;
         _owner.emit_signal("enter", &[]);
     }
 
-    #[export]
-    unsafe fn _on_player_exit(&mut self, _owner: &Area2D, _data: Variant) {
+    #[godot]
+    unsafe fn _on_player_exit(&mut self, #[base] _owner: &Area2D, _data: Variant) {
         self.is_block = false;
         //godot_print!("退出碰撞");
     }
 
+    #[godot]
+    unsafe fn _on_input_enter(&mut self, #[base] _owner: &Area2D, _data: Variant) {
+        // let mess = _data.to_string();
+        // let ws = self.ws.clone();
+        // ws.send_mesg(mess);
+    }
+
     // //绑定其他节点信号
-    // unsafe fn bind_signal_method_by_path(
-    //     &self,
-    //     _owner: &Area2D,
-    //     node_path: &str,
-    //     signal: &str,
-    //     method: &str,
-    // ) {
-    //     let emit = _owner.get_node(node_path).unwrap().assume_safe();
-    //     emit.connect(
-    //         signal,
-    //         _owner.assume_shared(),
-    //         method,
-    //         VariantArray::new_shared(),
-    //         0,
-    //     )
-    //     .unwrap();
-    // }
+    unsafe fn bind_signal_method_by_path(
+        &self,
+        _owner: &Area2D,
+        node_path: &str,
+        signal: &str,
+        method: &str,
+    ) {
+        let emit = _owner.get_node(node_path).unwrap().assume_safe();
+        emit.connect(
+            signal,
+            _owner.assume_shared(),
+            method,
+            VariantArray::new_shared(),
+            0,
+        )
+        .unwrap();
+    }
 
     //绑定本身的信号
     unsafe fn bind_signal_method(&self, _owner: &Area2D, signal: &str, method: &str) {

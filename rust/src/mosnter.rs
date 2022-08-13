@@ -73,12 +73,12 @@ impl Mosnter {
         }
     }
 
-    #[export]
-    unsafe fn _ready(&mut self, _owner: &Area2D) {}
+    #[godot]
+    unsafe fn _ready(&mut self, #[base] _owner: &Area2D) {}
 
     // This function will be called in every frame
-    #[export]
-    unsafe fn _process(&mut self, _owner: &Area2D, delta: f64) {
+    #[godot]
+    unsafe fn _process(&mut self, #[base] _owner: &Area2D, delta: f64) {
         //轮图
     }
 }

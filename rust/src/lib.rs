@@ -2,11 +2,13 @@ mod man_base;
 mod mosnter;
 mod player;
 mod tools;
+mod websocket;
 
 use gdnative::prelude::{godot_init, InitHandle};
 
 // Function that registers all exposed classes to Godot
 fn init(handle: InitHandle) {
+    handle.add_class::<websocket::Websocket>();
     handle.add_class::<player::Player>();
     handle.add_class::<mosnter::Mosnter>();
 }
