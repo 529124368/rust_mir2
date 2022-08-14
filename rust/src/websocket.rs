@@ -1,3 +1,4 @@
+use crate::tools;
 use futures_util::{future, pin_mut, StreamExt};
 use gdnative::api::*;
 use gdnative::prelude::*;
@@ -85,7 +86,9 @@ impl Websocket {
             let mut t = time::interval(Duration::from_secs(50));
             loop {
                 t.tick().await;
-                wss.send_mesg("#beat_heat&".to_string());
+                let msg = tools::msg_base::MsgBase::new(3, 0, "".to_string());
+                let msg = serde_json::to_string(&msg).unwrap();
+                wss.send_mesg(msg);
             }
         });
 
@@ -98,25 +101,20 @@ impl Websocket {
 
         //读取服务器消息
         let ws_to_stdout = read.for_each(|message| async {
-            let res = match message {
-                Ok(s) => s,
+            match message {
+                Ok(s) => {
+                    let data = s.into_data();
+                    let msg = std::str::from_utf8(&data).unwrap();
+                    //传入handle
+                    unsafe {
+                        self.do_handle(msg);
+                    }
+                }
                 Err(_) => {
-                    panic!("掉线了");
+                    panic!()
                 }
             };
-            let data = res.into_data();
-            let msg = std::str::from_utf8(&data).unwrap();
-            if msg.contains("上线了") {
-                unsafe {
-                    self.load_role();
-                }
-            }
-            unsafe {
-                let inp = self.msg_input.unwrap().assume_safe();
-                let _ = inp.append_bbcode('\n'.to_string() + msg);
-            }
         });
-
         pin_mut!(stdin_to_ws, ws_to_stdout);
         future::select(stdin_to_ws, ws_to_stdout).await;
     }
@@ -124,11 +122,12 @@ impl Websocket {
     #[godot]
     //聊天消息
     unsafe fn _on_input_enter(&mut self, _data: Variant) {
-        let mess = _data.to_string();
-        godot_print!("输入消息为:{}", mess);
-        self.send_mesg(mess);
+        let msg = tools::msg_base::MsgBase::new(1, 0, _data.to_string());
+        let msg = serde_json::to_string(&msg).unwrap();
+        self.send_mesg(msg);
     }
 
+    //发送消息
     fn send_mesg(&self, msg: String) {
         if let Ok(s) = self.send_channel.write() {
             if let Some(b) = s.as_ref() {
@@ -180,5 +179,24 @@ impl Websocket {
             .and_then(|f: TRef<Area2D>| f.cast::<Area2D>())
             .unwrap();
         nodes.set_position(Vector2 { x: 378.0, y: 64.0 });
+    }
+
+    //处理服务器消息
+    unsafe fn do_handle(&self, msg: &str) {
+        let p: tools::msg_base::MsgBase = serde_json::from_str(msg).unwrap();
+        match p {
+            p if p.mes_type == 0 => {
+                if p.message.contains("上线") {
+                    self.load_role();
+                }
+                let inp = self.msg_input.unwrap().assume_safe();
+                let _ = inp.append_bbcode("\n[color=red]".to_string() + &p.message + "[/color]");
+            }
+            p if p.mes_type == 1 => {
+                let inp = self.msg_input.unwrap().assume_safe();
+                let _ = inp.append_bbcode("\n".to_string() + &p.message);
+            }
+            tools::msg_base::MsgBase { .. } => todo!(),
+        }
     }
 }
