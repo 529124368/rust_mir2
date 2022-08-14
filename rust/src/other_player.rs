@@ -33,6 +33,7 @@ pub struct OtherPlayer {
     timer_tick: f64,
     sum: u8,
     speed: Vector2,
+    #[property]
     target: Vector2,
 }
 
@@ -134,5 +135,10 @@ impl OtherPlayer {
             self.timer_flg = self.timer_idel;
             self.anim_name = self.dir.to_string() + "_stand_";
         }
+    }
+
+    #[godot]
+    unsafe fn get_test(&mut self) {
+        godot_print!("我被调用了")
     }
 }

@@ -45,13 +45,15 @@ impl Websocket {
             .and_then(|f: TRef<RichTextLabel>| f.cast::<RichTextLabel>())
             .unwrap();
         self.msg_input = Some(w.claim());
-        //输入信号注册
+        //绑定输入信号注册
         self.bind_signal_method_by_path(
             _owner.as_ref(),
             "../../CanvasLayer/message/input",
             "text_entered",
             "_on_input_enter",
         );
+        //绑定玩家移动信号
+        self.bind_signal_method_by_path(_owner.as_ref(), "../Player", "move", "_on_move");
 
         //消息管道
         let (chane1, chanel2) = tokio::sync::mpsc::unbounded_channel::<String>();
@@ -127,6 +129,16 @@ impl Websocket {
         self.send_mesg(msg);
     }
 
+    #[godot]
+    //玩家移动信号
+    unsafe fn _on_move(&mut self, _data: Variant) {
+        let reee: Vector2 = _data.try_to().unwrap();
+        let mut msg = tools::msg_base::MsgBase::new(2, 0, "move".to_string());
+        msg.position = tools::msg_base::Vector2::new(reee.x, reee.y);
+        let msg = serde_json::to_string(&msg).unwrap();
+        self.send_mesg(msg);
+    }
+
     //发送消息
     fn send_mesg(&self, msg: String) {
         if let Ok(s) = self.send_channel.write() {
@@ -155,7 +167,7 @@ impl Websocket {
         .unwrap();
     }
 
-    unsafe fn load_role(&self) {
+    unsafe fn load_role(&self, id: u32) {
         let role = ResourceLoader::godot_singleton().load(
             "res://scenes/otherPlayer.tscn",
             "PackedScene",
@@ -164,7 +176,7 @@ impl Websocket {
         if let Some(s) = role.and_then(|f| f.cast::<PackedScene>()) {
             let instance = s.assume_safe().instance(0);
             if let Some(instance) = instance {
-                instance.assume_safe().set_name("user1");
+                instance.assume_safe().set_name(id.to_string());
                 self.my_node
                     .unwrap()
                     .assume_safe()
@@ -175,10 +187,11 @@ impl Websocket {
             .my_node
             .unwrap()
             .assume_safe()
-            .get_node_as("user1")
+            .get_node_as(id.to_string())
             .and_then(|f: TRef<Area2D>| f.cast::<Area2D>())
             .unwrap();
-        nodes.set_position(Vector2 { x: 378.0, y: 64.0 });
+        nodes.set_position(Vector2 { x: 0.0, y: 0.0 });
+        nodes.set("target", Vector2 { x: 0.0, y: 0.0 });
     }
 
     //处理服务器消息
@@ -187,7 +200,8 @@ impl Websocket {
         match p {
             p if p.mes_type == 0 => {
                 if p.message.contains("上线") {
-                    self.load_role();
+                    //加载玩家
+                    self.load_role(p.send_id);
                 }
                 let inp = self.msg_input.unwrap().assume_safe();
                 let _ = inp.append_bbcode("\n[color=red]".to_string() + &p.message + "[/color]");
@@ -195,6 +209,25 @@ impl Websocket {
             p if p.mes_type == 1 => {
                 let inp = self.msg_input.unwrap().assume_safe();
                 let _ = inp.append_bbcode("\n".to_string() + &p.message);
+            }
+            p if p.mes_type == 2 => {
+                //移动其他玩家位置
+                if p.message.contains("move") {
+                    let nodes = self
+                        .my_node
+                        .unwrap()
+                        .assume_safe()
+                        .get_node_as(p.send_id.to_string())
+                        .and_then(|f: TRef<Area2D>| f.cast::<Area2D>())
+                        .unwrap();
+                    nodes.set(
+                        "target",
+                        Vector2 {
+                            x: p.position.x,
+                            y: p.position.y,
+                        },
+                    );
+                }
             }
             tools::msg_base::MsgBase { .. } => todo!(),
         }

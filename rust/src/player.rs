@@ -41,6 +41,8 @@ pub struct Player {
 impl Player {
     fn register_builder(_builder: &ClassBuilder<Self>) {
         _builder.signal("enter").done();
+        //移动信号
+        _builder.signal("move").done();
     }
 
     fn new(_owner: &Area2D) -> Self {
@@ -198,6 +200,8 @@ impl Player {
             }
         }
         if _event.assume_safe().is_action_released("mouse_left", false) {
+            //发射信号
+            _owner.emit_signal("move", &[Variant::new(self.target)]);
             PRESS = false;
         }
     }
