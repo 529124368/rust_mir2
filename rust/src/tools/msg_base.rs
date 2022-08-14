@@ -18,6 +18,7 @@ pub struct MsgBase {
     pub send_id: u32,
     pub message: String,
     pub position: Vector2,
+    pub direaction: u8,
 }
 
 impl MsgBase {
@@ -27,6 +28,7 @@ impl MsgBase {
             send_id,
             message,
             position: Vector2::new(0.0, 0.0),
+            direaction: 0,
         }
     }
 }

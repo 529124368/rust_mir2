@@ -82,6 +82,11 @@ impl Websocket {
             }
         });
 
+        //玩家第一次上线询问服务器，除了自己还有谁在线 -> 为了初始化场景内的玩家
+        let msg = tools::msg_base::MsgBase::new(2, 0, "has_who".to_string());
+        let msg = serde_json::to_string(&msg).unwrap();
+        self.send_mesg(msg);
+
         //心跳检测
         let wss = self.clone();
         tokio::task::spawn(async move {
@@ -131,10 +136,12 @@ impl Websocket {
 
     #[godot]
     //玩家移动信号
-    unsafe fn _on_move(&mut self, _data: Variant) {
-        let reee: Vector2 = _data.try_to().unwrap();
+    unsafe fn _on_move(&mut self, _pos: Variant, _dir: Variant) {
+        let reee: Vector2 = _pos.try_to().unwrap();
+        let dirr: u8 = _dir.try_to().unwrap();
         let mut msg = tools::msg_base::MsgBase::new(2, 0, "move".to_string());
         msg.position = tools::msg_base::Vector2::new(reee.x, reee.y);
+        msg.direaction = dirr;
         let msg = serde_json::to_string(&msg).unwrap();
         self.send_mesg(msg);
     }
@@ -227,6 +234,16 @@ impl Websocket {
                             y: p.position.y,
                         },
                     );
+                    nodes.call("set_dir", &[Variant::new(p.direaction)]);
+                } else {
+                    let res: Vec<&str> = p.message.split(':').collect();
+                    let res: Vec<&str> = res[1].split('|').collect();
+                    if res.len() - 1 > 0 {
+                        for i in &res[..res.len() - 1] {
+                            //加载玩家
+                            self.load_role(i.parse::<u32>().unwrap());
+                        }
+                    }
                 }
             }
             tools::msg_base::MsgBase { .. } => todo!(),

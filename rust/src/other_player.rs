@@ -93,6 +93,24 @@ impl OtherPlayer {
 
     #[godot]
     unsafe fn _process(&mut self, #[base] _owner: &Area2D, delta: f64) {
+        //移动
+        self.speed = _owner.position().direction_to(self.target) * self.move_speed;
+        if _owner.position().distance_to(self.target) > 3.0 {
+            self.state = man_base::Action::Run(1);
+            //修改播放速度
+            self.timer_flg = self.timer_run;
+            self.anim_name = self.dir.to_string() + "_run_";
+            let pos = self.speed.mul(delta as f32);
+            let newx = _owner.position().x + pos.x;
+            let newy = _owner.position().y + pos.y;
+            _owner.set_position(Vector2 { x: newx, y: newy });
+        } else if self.state != man_base::Action::Attack(2) {
+            self.state = man_base::Action::Idle(0);
+            //修改播放速度
+            self.timer_flg = self.timer_idel;
+            self.anim_name = self.dir.to_string() + "_stand_";
+        }
+
         //轮图
         self.timer_tick += delta;
         if self.timer_tick > self.timer_flg {
@@ -117,28 +135,10 @@ impl OtherPlayer {
             }
             self.sum += 1;
         }
-
-        //移动
-        self.speed = _owner.position().direction_to(self.target) * self.move_speed;
-        if _owner.position().distance_to(self.target) > 3.0 {
-            self.state = man_base::Action::Run(1);
-            //修改播放速度
-            self.timer_flg = self.timer_run;
-            self.anim_name = self.dir.to_string() + "_run_";
-            let pos = self.speed.mul(delta as f32);
-            let newx = _owner.position().x + pos.x;
-            let newy = _owner.position().y + pos.y;
-            _owner.set_position(Vector2 { x: newx, y: newy });
-        } else if self.state != man_base::Action::Attack(2) {
-            self.state = man_base::Action::Idle(0);
-            //修改播放速度
-            self.timer_flg = self.timer_idel;
-            self.anim_name = self.dir.to_string() + "_stand_";
-        }
     }
 
     #[godot]
-    unsafe fn get_test(&mut self) {
-        godot_print!("我被调用了")
+    unsafe fn set_dir(&mut self, dir: u8) {
+        self.dir = dir;
     }
 }

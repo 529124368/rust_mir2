@@ -99,30 +99,6 @@ impl Player {
     #[godot]
     unsafe fn _process(&mut self, #[base] _owner: &Area2D, delta: f64) {
         let input = Input::godot_singleton();
-        //轮图
-        self.timer_tick += delta;
-        if self.timer_tick > self.timer_flg {
-            let action = match self.state {
-                man_base::Action::Idle(a) => a,
-                man_base::Action::Run(b) => b,
-                man_base::Action::Attack(c) => c,
-            };
-            self.timer_tick = 0.0;
-            self.sum %= self.step_nums[action as usize];
-
-            //裁剪图集
-            self.render_sprite(action, self.sum);
-            //
-            if action == 2 {
-                self.render_skill(self.sum);
-            } else {
-                self.skill_sprite
-                    .unwrap()
-                    .assume_safe()
-                    .set_texture(Texture::null());
-            }
-            self.sum += 1;
-        }
 
         //移动
         self.speed = _owner.position().direction_to(self.target) * self.move_speed;
@@ -165,6 +141,30 @@ impl Player {
         if Input::is_action_pressed(input, "f2", false) {
             self.change_skill("liehuo".to_string());
         }
+        //轮图
+        self.timer_tick += delta;
+        if self.timer_tick > self.timer_flg {
+            let action = match self.state {
+                man_base::Action::Idle(a) => a,
+                man_base::Action::Run(b) => b,
+                man_base::Action::Attack(c) => c,
+            };
+            self.timer_tick = 0.0;
+            self.sum %= self.step_nums[action as usize];
+
+            //裁剪图集
+            self.render_sprite(action, self.sum);
+            //
+            if action == 2 {
+                self.render_skill(self.sum);
+            } else {
+                self.skill_sprite
+                    .unwrap()
+                    .assume_safe()
+                    .set_texture(Texture::null());
+            }
+            self.sum += 1;
+        }
     }
 
     #[godot]
@@ -201,7 +201,7 @@ impl Player {
         }
         if _event.assume_safe().is_action_released("mouse_left", false) {
             //发射信号
-            _owner.emit_signal("move", &[Variant::new(self.target)]);
+            _owner.emit_signal("move", &[Variant::new(self.target), Variant::new(self.dir)]);
             PRESS = false;
         }
     }
