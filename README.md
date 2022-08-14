@@ -1,9 +1,9 @@
 # rust_mir2
-rust写的传奇2 demo
+rust+godot Gdnative 写的传奇2 demo
 
 
 # 安装流程
-### .需要安装godot引擎 3.4 版本
+### .需要安装 Godot引擎 3.4 版本
 ### .安装 rust 开发环境
 
 
