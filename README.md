@@ -14,14 +14,14 @@ rust+godot Gdnative 写的传奇2 demo
 ### .安装 rust 开发环境
 
 
-# demo的服务器端代码 rust写，下载地址
+# demo的服务器端代码(websocket serve code) rust写，下载地址
 
 https://github.com/529124368/rust_websocket_demo
 
 编译命令 ： cargo build --release
 
 
-# 客户端代码，本页代码
+# 客户端代码 (game client code)
 
 代码包含rust脚本代码 + godot工程代码
 
