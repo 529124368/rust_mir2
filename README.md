@@ -1,3 +1,10 @@
+# Info
+
+The game demo written by godot rust implements simple websocket communication, most of the game logic is developed using rust, and the websocket client and server are developed based on tokio .
+
+
+
+
 # rust_mir2
 rust+godot Gdnative 写的传奇2 demo
 
